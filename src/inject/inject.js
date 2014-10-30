@@ -624,8 +624,7 @@ $(document).ready(function () {
 
             $('#divTaskNotes table tr:nth-child(2) td:nth-child(2)').each(function(i, td) {
                 console.log(td)
-                // td.innerHTML = '<pre>' + td.innerHTML.slice(40, -37) + '</pre>'
-                td.innerHTML = '<pre>' + td.innerHTML.trim() + '</pre>'
+                td.innerHTML = '<pre>' + td.innerHTML.slice(40, -37) + '</pre>'
 
 
             })

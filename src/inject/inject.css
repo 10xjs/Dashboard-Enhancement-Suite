@@ -514,6 +514,11 @@ input[type='text'], input[type='password'] {
   display: block;
 }
 
+#ctl00_plcContentPlaceHolder_dltTaskNotes table.clsStandard * {
+  max-width: 100%;
+  display: block;
+}
+
 #ctl00_plcContentPlaceHolder_dltTaskNotes table.clsStandard td {
   display: block;
   height: 22px;
@@ -556,6 +561,8 @@ input[type='text'], input[type='password'] {
   color: #000;
   height: auto;
   line-height: 1.4em;
+
+  max-width: 100%;
 }
 
 #ctl00_plcContentPlaceHolder_dltTaskNotes table.clsStandard tr:nth-child(2) > td:nth-child(2) pre {
