@@ -1,0 +1,52 @@
+<div class="foundation">
+  <div class="clearfix">
+    <table class="fullwidth table-fixed table-tasks">
+    <caption>{{:title}}</caption>
+      <thead>
+        <tr>
+         <th data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$PriorityOrder')" style="width: 30px;">{{if showPriorityColumn}}#<i class="column-sort fa fa-sort"></i>{{/if}}</th>
+          <th data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$Name')">Task<i class="column-sort fa fa-sort"></i></th>
+          <th data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$DomainName')">Client<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 110px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$DateCreated')">Estimated<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 110px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$DateDue')">Billable<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 90px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$OwnerUserName')">Owner<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 80px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$TaskStatusName')">Status<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 80px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$TaskPriorityName')">Urgency<i class="column-sort fa fa-sort"></i></th>
+          <th style="width: 80px;" data-href="javascript:__doPostBack('ctl00$plcContentPlaceHolder$grdSelectAssigned','Sort$TaskQueueName')">Queue<i class="column-sort fa fa-sort"></i></th>
+          <th class="col-actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+      {{for tasks}}
+        <tr data-href="tasks.aspx?Action=LoadTask&TaskID={{:id}}" class="{{:className}} {{:statusClass}} {{:urgencyClass}} {{:queueClass}}">
+          <td style="text-align: center;">{{:priority}}</td>
+          <td><strong>{{:title}}</strong><a href="tasks.aspx?Action=LoadTask&TaskID={{:id}}" class="cell-action"><i class="fa fa-caret-right"></i></a>
+          </td>
+          <td>
+           <span style="color:#666;">{{:clientName}}</span><a href="https://apps.caorda.com/dashboard/domains.aspx?DomainID={{:clientId}}" class="cell-action"><i class="fa fa-caret-right"></i></a></td>
+          <td>{{:estimatedTime}}</td>
+          <td>{{:billableTime}}</td>
+          <td>{{:owner}}<a href="{{:emailLink}}" class="cell-action"><i class="fa fa-caret-right"></i></a></td>
+          <td class="col-label">
+            <span class="label {{:statusClass}} radius">{{:status}}</span>
+          </td>
+          <td class="col-label">
+            <span class="label {{:urgencyClass}} radius">{{:urgency}}</span>
+          </td>
+          <td class="col-label">
+            <span class="label {{:queueClass}} radius">{{:queue}}</span>
+          </td>
+          <td data-actions class="col-actions">
+            <ul class="group-actions button-group">
+              <li><a href="#" onclick="return false" class="button secondary"><i class="fa fa-caret-right"></i></a></li>
+              {{for actions}}
+                <li><a href="{{:href}}" title="{{:text}}" {{if onclick}}onclick="{{:onclick}}"{{/if}} class="button {{:className}}"><i class="fa {{:icon}}"></i></a></li>
+              {{/for}}
+            </ul>
+          </td>
+        </tr>
+      {{/for}}
+      </tbody>
+    </table>
+  </div>
+</div>

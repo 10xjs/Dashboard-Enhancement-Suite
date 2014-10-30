@@ -1,0 +1,49 @@
+{
+  "name": "Dashboard Enhancement Suite",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "This extension was created with the awesome extensionizr.com",
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "page action demo",
+    "default_popup": "src/page_action/page_action.html"
+  },
+  "permissions": [
+    "https://apps.caorda.com/dashboard*",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://apps.caorda.com/dashboard/tasks/*"
+      ],
+      "css": [
+        "src/css/normalize.css",
+        "src/css/font-awesome.min.css",
+        "src/css/foundation.prefixed.css",
+        "src/inject/inject.css",
+        "src/css/styles.css"
+      ],
+
+      "js": [
+        "src/js/vendor/angular.js",
+        "node_modules/jquery/dist/jquery.min.js",
+        "node_modules/lodash/dist/lodash.min.js",
+        "src/js/vendor/jsrender.js",
+        "src/inject/inject.js",
+        "src/js/app.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    "src/views/*",
+    "src/data/*"
+  ]
+}

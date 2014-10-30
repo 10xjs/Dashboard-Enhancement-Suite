@@ -1,0 +1,166 @@
+.foundation table.table-tasks {
+  border: none;
+  overflow: hidden !important;
+}
+.foundation table.table-tasks caption {
+  text-align: left;
+}
+
+.foundation table.table-tasks tr th, .foundation table.table-tasks tr td {
+  padding: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.foundation a.cell-action {
+  color: #aaa;
+}
+.foundation a.cell-action:hover {
+  color: rgb(0, 140, 186);
+}
+.foundation table.table-tasks tr td.col-actions,
+.foundation table.table-tasks tr th.col-actions {
+  width: 34px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+  overflow: visible;
+}
+
+.group-actions {
+  width: 150px;
+}
+.foundation .group-actions > li {
+  margin: 0;
+  transition: all .1s ease-in-out;
+  transform: translate(0,0);
+}
+
+.foundation table.table-tasks tr.show-actions .group-actions > li {
+  transform: translate(-30px,0);
+}
+
+
+.group-actions .button {
+  padding: 4px 4px;
+  margin-bottom: 0;
+  width: 30px;
+  height: 29px;
+}
+
+.foundation table.table-tasks tr .group-actions > li:first-child {
+  transition: all .1s ease-in-out;
+  transform: scale(1,1);
+}
+
+.foundation table.table-tasks tr.show-actions .group-actions > li:first-child {
+  transform: scale(0,1);
+}
+
+
+.foundation table.table-tasks tr {
+  transition: all .1s ease-in-out;
+  transform: translate(0,0);
+}
+.foundation table.table-tasks tr.show-actions {
+  transform: translate(-90px,0);
+}
+
+.foundation [data-href] {
+  cursor: pointer;
+}
+.foundation .fullwidth {
+  width: 100%;
+}
+.foundation .table-fixed {
+  table-layout:fixed;
+}
+
+.foundation .cell-action {
+  opacity: 0;
+  transition: opacity .1s linear;
+  font-size: 1.5em;
+  width: 16px;
+  padding: 4px 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.foundation td:hover .cell-action {
+  opacity: 1;
+}
+
+.foundation table.table-tasks tr[data-href]:hover {
+  background: rgb(235, 235, 235);
+}
+.foundation table.table-tasks tr[data-href]:nth-of-type(even):hover {
+  background: rgb(229, 229, 229);
+}
+
+.label.status-active {
+  background-color: rgb(69, 85, 171);
+}
+
+.label.status-with-client {
+  background-color: rgb(159, 162, 182);
+}
+
+.label.status-not-started {
+  background-color: rgb(116, 125, 175);
+}
+
+
+.label.urgency-high {
+  background-color: rgb(59, 159, 184);
+  background-color: rgb(186, 43, 202);
+}
+.label.urgency-medium {
+  background-color: rgb(109, 165, 179);
+}
+.label.urgency-low {
+  background-color: rgb(161, 179, 184);
+}
+
+.label.queue-project {
+  background-color: rgb(71, 180, 97);
+}
+.label.queue-support {
+  background-color: rgb(212, 88, 88);
+}
+
+td.col-label .label {
+  width: 100%;
+}
+
+.foundation table.table-tasks thead tr th,
+.foundation table.table-tasks thead tr td {
+  color: #fff;
+}
+
+.foundation table.table-tasks thead {
+  background: #333;
+}
+
+i.column-sort {
+  float: right;
+  margin-top: 3px;
+  opacity: 0;
+  transition: opacity .1s linear;
+  color: #ccc;
+}
+
+th:hover i.column-sort{
+  opacity: 1;
+}
+
+.foundation table tr.status-not-started td{
+  opacity: 0.9;
+  background: rgba(0,0,0,0.1)
+}
+.foundation table tr.status-with-client td{
+  opacity: 0.9;
+  background: rgba(0,0,0,0.1)
+}

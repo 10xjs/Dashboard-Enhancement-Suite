@@ -1,0 +1,95 @@
+{
+  "contacts":
+  [
+    {
+      "firstName": "Alan",
+      "lastName": "Pugh",
+      "shortName": "Alan P.",
+      "email": "apugh@caorda.com"
+    },
+    {
+      "firstName": "Eric",
+      "lastName": "McNiece",
+      "shortName": "Eric M.",
+      "email": "emcniece@caorda.com"
+    },
+    {
+      "firstName": "Hilary",
+      "lastName": "Tabbernor",
+      "shortName": "Hilary T.",
+      "email": "htabbernor@caorda.com"
+    },
+    {
+      "firstName": "Jason",
+      "lastName": "Stearns",
+      "shortName": "Jason S.",
+      "email": "jstearns@caorda.com"
+    },
+    {
+      "firstName": "Jeremy",
+      "lastName": "Snell",
+      "shortName": "Jeremy S.",
+      "email": "jsnell@caorda.com"
+    },
+    {
+      "firstName": "Lance",
+      "lastName": "Hesketh",
+      "shortName": "Lance H.",
+      "email": "lhesketh@caorda.com"
+    },
+    {
+      "firstName": "Lorne",
+      "lastName": "Neil",
+      "shortName": "Lorne N.",
+      "email": "lneil@caorda.com"
+    },
+    {
+      "firstName": "Max",
+      "lastName": "Dumonceaux",
+      "shortName": "Max D.",
+      "email": "mdumonceaux@caorda.com"
+    },
+    {
+      "firstName": "Neal",
+      "lastName": "Granger",
+      "shortName": "Neal G.",
+      "email": "ngranger@caorda.com"
+    },
+    {
+      "firstName": "Rauvy",
+      "lastName": "Dalep",
+      "shortName": "Rauvy D.",
+      "email": "rdalep@caorda.com"
+    },
+    {
+      "firstName": "Renee",
+      "lastName": "Bush",
+      "shortName": "Renee B.",
+      "email": "rbush@caorda.com"
+    },
+    {
+      "firstName": "Ryan",
+      "lastName": "Morben",
+      "shortName": "Ryan M.",
+      "email": "rmorben@caorda.com"
+    },
+    {
+      "firstName": "Mark",
+      "lastName": "Nahirny",
+      "shortName": "Mark N.",
+      "email": "mnahirny@caorda.com"
+    },
+    {
+      "firstName": "Robert",
+      "lastName": "Regimbald",
+      "shortName": "Robert R.",
+      "email": "rregimbald@caorda.com"
+    },
+    {
+      "firstName": "Support",
+      "lastName": "Queue",
+      "shortName": "Support Q.",
+      "email": "support@caorda.com"
+    }
+  ]
+}
