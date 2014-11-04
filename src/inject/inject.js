@@ -134,6 +134,16 @@ var contacts = [
     }
 ]
 
+// function Extension() {}
+
+// Extension.prototype.loadFileAsync = function(first_argument) {
+//     // body...
+// };
+
+// Extention.prototype.init = function(first_argument) {
+//     // body...
+// };
+
 
 var registerTemplate = function(name) {
     var file = chrome.extension.getURL('src/views/' + name + '.html')
@@ -336,26 +346,29 @@ $(document).ready(function () {
 
             function loadAssignedTasks() {
                 console.log('loadAssignedTasks')
+                chrome.storage.local.get('assignedTasks',function (items) {
+                    var localTasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
+                    savedTasks = items['assignedTasks'],
+                    mergedTasks = mergeAssignedTasks(localTasks,savedTasks)
 
-                var tasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
-
-
-                renderTaskTable('Assigned Tasks', tasks, true)
-
-                
-                function tasksLoadedFromTable() {
-                    
-                }
-
-                function tasksLoadedFromStoreage() {
-
-                } 
-
+                    chrome.storage.local.set({'assignedTasks':mergedTasks},function () {
+                        renderTaskTable("Assigned Tasks", mergedTasks, true)
+                    })
+                })
             }
 
+            function mergeAssignedTasks(localTasks,savedTasks) {
+                var resultTasks = []
+                _.forEach(localTasks,function (element, index, array) {
+                    resultTasks.push(_.assign(element,findTask(element.id,savedTasks)))
+                })
+                return resultTasks
+            }
 
-            function mergeTasks() {
-
+            function findTask(id,tasks) {
+                return _.find(savedTasks, function (element, index, array) {
+                    return element.id == id;
+                })
             }
 
             function renderTaskTable(title, tasks, showPriorityColumn) {
@@ -380,49 +393,33 @@ $(document).ready(function () {
                     }
                 )
 
-                // $taskTable.find('[data-meta]').on('click', function (e) {
-                //     var taskId = $(this).data('meta'), task, note
+                $taskTable.find('input.notes').on('click', function (e) {
+                    e.stopPropagation()
+                })
 
-                //     task = _.find(tasks,function (task, i) {
-                //         return task.id === taskId
-                //     })
 
-                //     console.log(task)
-
-                //     note = $.trim(prompt('Task Note', task.meta.note || ''))
-
-                //     console.log(note, task.meta.note)
-
-                //     if( note !== null && note !== task.meta.note) {
-                //         task.meta.note = note
-
-                //         updateTaskMeta(taskId,{'note':task.meta.note})
-
-                //     }
-
-                //     e.stopPropagation()
-                //     e.preventDefault()
-                // })
-
+                $taskTable.find('input.notes').on('blur', function (e) {
+                    saveTaskNote($(this).data('task-id'),this.value)
+                })
                 $('#ctl00_plcContentPlaceHolder_pnlSelectAssigned').before($taskTable)
-
             }
 
-            // function updateTaskMeta(taskId, meta) {
+            function saveTaskNote(id, note) {
 
-            //     chrome.storage.local.get('taskMeta', function (data) {
-            //         if ( !_.find(data.taskMeta,function (element, index) {
-            //             if( taskId === element.taskId ) {
-            //                 _.merge(element.meta, meta)
-            //             }
-            //         }) ) {
-            //             data.taskMeta.push({'taskId':taskId,'meta':meta})
-            //         }
-            //         chrome.storage.local.set(data, function () {
-            //             console.log('meta saved')
-            //         })
-            //     })
-            // }
+                chrome.storage.local.get('assignedTasks',function (items) {
+                    _.forEach(items['assignedTasks'],function (element, index, array) {
+                        if(element.id == id) {
+                            console.log('set note')
+                            array[index].note = note
+                            return false
+                        }
+                    })
+
+                    chrome.storage.local.set(items,function () {
+                        console.log('note saved')
+                    })
+                })
+            }
 
 
             function loadSupportTasks() {
@@ -548,7 +545,6 @@ $(document).ready(function () {
                     task.actions = actions
 
                     tasks.push(task)
-
                 })
              return tasks
             }
