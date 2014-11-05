@@ -550,7 +550,7 @@ $(document).ready(function () {
             if(taskList) {
                 loadAssignedTasks()
                 loadSupportTasks()
-                taskMenuClickPopup()
+                injectClock()
             }
 
 
