@@ -164,3 +164,18 @@ th:hover i.column-sort{
   opacity: 0.9;
   background: rgba(0,0,0,0.1)
 }
+
+
+input[type='text'].notes {
+  padding: 4px !important;
+  margin: -4px !important;
+  height: 29px !important;
+  display: block !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+input[type='text'].notes:focus {
+  background: rgba(255,255,255,0.5) !important;
+}
