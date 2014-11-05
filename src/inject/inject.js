@@ -162,7 +162,7 @@ registerTemplate('tasktable')
 // }
 
 $(document).ready(function () {
-        console.log('ready')
+        // console.log('ready')
 
         var toolbarToggled = parseInt(localStorage.getItem('caorda-dashboard-static-toolbar'),10)
 
@@ -242,7 +242,7 @@ $(document).ready(function () {
             var $td, $clock, $hours, $minutes, start = new Date()
 
             function injectClock() {
-                console.log('inject clock')
+                // console.log('inject clock')
                 var i, totalHours = 0, totalMinutes = 0
 
                 ;(function (m){
@@ -345,7 +345,7 @@ $(document).ready(function () {
 
 
             function loadAssignedTasks() {
-                console.log('loadAssignedTasks')
+                // console.log('loadAssignedTasks')
                 chrome.storage.local.get('assignedTasks',function (items) {
                     var localTasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
                     savedTasks = items['assignedTasks'],
@@ -416,14 +416,13 @@ $(document).ready(function () {
                     })
 
                     chrome.storage.local.set(items,function () {
-                        console.log('note saved')
                     })
                 })
             }
 
 
             function loadSupportTasks() {
-                    console.log('loadSupportTasks')
+                    // console.log('loadSupportTasks')
                     $.get('//apps.caorda.com/dashboard/tasks/tasks.aspx?Action=LoadAssignee&AssigneeUserID=11626&TaskStatusID=2')
                     .done(function (data) {
                         var tasks = getTasksFromTable($(data).find('#ctl00_plcContentPlaceHolder_grdSelect'))
@@ -549,37 +548,12 @@ $(document).ready(function () {
              return tasks
             }
 
-
-
-            function taskMenuClickPopup() {
-
-
-                // console.log('clickable task menus')
-
-                // $(document).off('click.task')
-
-                // $('.clsNestedListMenu.clsTask li a').on('click',function () {
-                //   console.log('task menu click')
-
-                //   var $ul = $(this).siblings('ul')
-
-                //   $ul.addClass('active')
-
-                //   setTimeout(function () {
-                //     $(document).on('click.task', function (e) {
-                //       if($ul) {
-                //         $ul.removeClass('active')
-                //         $(document).off('click.task')
-                //       }
-                //     })
-                //   },10)
-                // })
+            if(taskList) {
+                loadAssignedTasks()
+                loadSupportTasks()
+                taskMenuClickPopup()
+                injectClock()
             }
-
-            loadAssignedTasks()
-            loadSupportTasks()
-            taskMenuClickPopup()
-            injectClock()
 
 
 
