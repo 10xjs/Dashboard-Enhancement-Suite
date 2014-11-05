@@ -215,7 +215,6 @@ $(document).ready(function () {
                             if(mutation.addedNodes[0].id === "ctl00_plcContentPlaceHolder_pnlSelectAssigned") {
                                 loadAssignedTasks()
                                 loadSupportTasks()
-                                taskMenuClickPopup()
                             }
                         }
                     }
@@ -551,7 +550,6 @@ $(document).ready(function () {
             if(taskList) {
                 loadAssignedTasks()
                 loadSupportTasks()
-                taskMenuClickPopup()
                 injectClock()
             }
 
@@ -595,7 +593,6 @@ $(document).ready(function () {
             $('#divTaskNotes table tr:nth-child(2) td:nth-child(2)').each(function(i, td) {
                 console.log(td)
                 td.innerHTML = '<pre>' + td.innerHTML.slice(40, -37) + '</pre>'
-
 
             })
         }
