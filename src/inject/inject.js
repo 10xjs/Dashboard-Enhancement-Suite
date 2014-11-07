@@ -371,7 +371,9 @@ $(document).ready(function () {
 
 
                 if(notesTable) {
-                    $taskTable.find('input.notes')
+                    var notesInputs = $taskTable.find('input.notes')
+                    
+                    notesInputs
                     .on('click', function (e) {
                         e.stopPropagation()
                     })
@@ -386,6 +388,22 @@ $(document).ready(function () {
                         getNote(notesTable,$this.data('task-id'),function (note) {
                             $this.attr('value',note)
                         })
+                    })
+
+
+                    $(document).on('keydown', function (e) {
+                        if(e.keyCode == 9 || e.keyCode == 13 && notesInputs.find(e.target)) {
+                            var $target = $(e.target)
+
+                            console.log($target.parent())
+
+                            var direction = e.shiftKey ? 'prev' : 'next'
+
+                            $target.closest('tr')[direction]().find('input.notes').focus().select()
+
+                            e.preventDefault()
+                            e.stopPropogation()
+                        }
                     })
                 }
 
