@@ -221,7 +221,6 @@ $(document).ready(function () {
                 })
             })
 
-            taskList && taskListObserver.observe(taskList, {childList: true})
 
             var timeEntriesObserver = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
@@ -234,8 +233,6 @@ $(document).ready(function () {
                     }
                 })
             })
-
-            timeEntries && timeEntriesObserver.observe(timeEntries, {childList: true})
 
 
             var $td, $clock, $hours, $minutes, start = new Date()
@@ -345,32 +342,12 @@ $(document).ready(function () {
 
             function loadAssignedTasks() {
                 // console.log('loadAssignedTasks')
-                chrome.storage.local.get('assignedTasks',function (items) {
-                    var localTasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
-                    savedTasks = items['assignedTasks'],
-                    mergedTasks = mergeAssignedTasks(localTasks,savedTasks)
+                var tasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
 
-                    chrome.storage.local.set({'assignedTasks':mergedTasks},function () {
-                        renderTaskTable("Assigned Tasks", mergedTasks, true)
-                    })
-                })
+                renderTaskTable("Assigned Tasks", tasks, true, 'assignedTasksNotes')
             }
 
-            function mergeAssignedTasks(localTasks,savedTasks) {
-                var resultTasks = []
-                _.forEach(localTasks,function (element, index, array) {
-                    resultTasks.push(_.assign(element,findTask(element.id,savedTasks)))
-                })
-                return resultTasks
-            }
-
-            function findTask(id,tasks) {
-                return _.find(savedTasks, function (element, index, array) {
-                    return element.id == id;
-                })
-            }
-
-            function renderTaskTable(title, tasks, showPriorityColumn) {
+            function renderTaskTable(title, tasks, showPriorityColumn, notesTable) {
 
                 var $taskTable = $($.render.tasktable({'title':title,'tasks':tasks, 'showPriorityColumn': showPriorityColumn}))
 
@@ -392,30 +369,45 @@ $(document).ready(function () {
                     }
                 )
 
-                $taskTable.find('input.notes').on('click', function (e) {
-                    e.stopPropagation()
-                })
 
+                if(notesTable) {
+                    $taskTable.find('input.notes')
+                    .on('click', function (e) {
+                        e.stopPropagation()
+                    })
+                    .on('blur', function (e) {
+                        saveNote(notesTable,$(this).data('task-id'),this.value)
+                    })
+                    .each(function (i,e) {
+                        var $this = $(this)
 
-                $taskTable.find('input.notes').on('blur', function (e) {
-                    saveTaskNote($(this).data('task-id'),this.value)
-                })
+                        $this.attr('tabindex',i)
+
+                        getNote(notesTable,$this.data('task-id'),function (note) {
+                            $this.attr('value',note)
+                        })
+                    })
+                }
+
                 $('#ctl00_plcContentPlaceHolder_pnlSelectAssigned').before($taskTable)
             }
 
-            function saveTaskNote(id, note) {
+            function saveNote(table, id, note) {
+                var key = table + id,
+                data = {}
 
-                chrome.storage.local.get('assignedTasks',function (items) {
-                    _.forEach(items['assignedTasks'],function (element, index, array) {
-                        if(element.id == id) {
-                            console.log('set note')
-                            array[index].note = note
-                            return false
-                        }
-                    })
+                data[key] = note
+           
+                chrome.storage.local.set(data,function () {
+                    console.log('save',data)
+                })
+            }
 
-                    chrome.storage.local.set(items,function () {
-                    })
+            function getNote(table, id, callback) {
+                var key = table + id;
+                chrome.storage.local.get(key, function (data) {
+                    console.log('load',data)
+                    callback(data[key])
                 })
             }
 
@@ -547,10 +539,13 @@ $(document).ready(function () {
              return tasks
             }
 
-            if(taskList) {
+            if(location.href.match('apps.caorda.com/dashboard/tasks/tasklist.aspx')) {
                 loadAssignedTasks()
                 loadSupportTasks()
                 injectClock()
+
+                taskList && taskListObserver.observe(taskList, {childList: true})
+                timeEntries && timeEntriesObserver.observe(timeEntries, {childList: true})
             }
 
 
