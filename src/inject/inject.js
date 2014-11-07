@@ -402,7 +402,7 @@ $(document).ready(function () {
                             $target.closest('tr')[direction]().find('input.notes').focus().select()
 
                             e.preventDefault()
-                            e.stopPropogation()
+                            e.stopPropagation()
                         }
                     })
                 }
