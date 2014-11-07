@@ -19,12 +19,12 @@
       </thead>
       <tbody>
       {{for tasks}}
-        <tr data-href="tasks.aspx?Action=LoadTask&TaskID={{:id}}" class="{{:className}} {{:statusClass}} {{:urgencyClass}} {{:queueClass}}">
+        <tr data-task-id="{{:id}}" data-href="tasks.aspx?Action=LoadTask&TaskID={{:id}}" class="{{:className}} {{:statusClass}} {{:urgencyClass}} {{:queueClass}}">
           <td style="text-align: center;">{{:priority}}</td>
           <td><strong>{{:title}}</strong><a href="tasks.aspx?Action=LoadTask&TaskID={{:id}}" class="cell-action"><i class="fa fa-caret-right"></i></a>
           </td>
           <td>
-           <span style="color:#666;">{{:clientName}}</span><a href="https://apps.caorda.com/dashboard/domains.aspx?DomainID={{:clientId}}" class="cell-action"><i class="fa fa-caret-right"></i></a></td>
+           <span style="opacity: 0.8;">{{:clientName}}</span><a href="https://apps.caorda.com/dashboard/domains.aspx?DomainID={{:clientId}}" class="cell-action"><i class="fa fa-caret-right"></i></a></td>
           <td><input class="notes" data-task-id="{{:id}}" type="text" value="{{:note}}"></td>
           <td>{{:estimatedTime}}</td>
           <td>{{:billableTime}}</td>

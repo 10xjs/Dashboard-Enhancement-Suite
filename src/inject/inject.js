@@ -150,6 +150,7 @@ var registerTemplate = function(name) {
     $.when($.get(file))
     .done(function (data) {
         $.templates(name, data)
+        initExtension()
     })
 }
 registerTemplate('tasktable')
@@ -161,19 +162,13 @@ registerTemplate('tasktable')
 //   location.href = location.href.replace("http://", "https://");
 // }
 
-$(document).ready(function () {
+function initExtension(){
+    $(document).ready(function () {
         // console.log('ready')
 
         var toolbarToggled = parseInt(localStorage.getItem('caorda-dashboard-static-toolbar'),10)
 
-        function isNumber(value) {
-            return typeof value == 'number' || value && typeof value == 'object' && toString.call(value) == numberClass || false;
-        }
-        function isNaN(value) {
-            return isNumber(value) && value != +value;
-        }
-
-        if(isNaN(toolbarToggled)) {
+        if(_.isNaN(toolbarToggled)) {
             toolbarToggled = 1;
         }
 
@@ -205,353 +200,399 @@ $(document).ready(function () {
         updateToolbar()
 
 
-        var taskList = $('#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_pnlSelectAssignedPanel,#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_grdSelectPanel')[0]
-        var timeEntries = $('#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_pnlSelectDailyPanel')[0]
 
-            var taskListObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if(mutation.addedNodes) {
-                        if(mutation.addedNodes[0]) {
-                            if(mutation.addedNodes[0].id === "ctl00_plcContentPlaceHolder_pnlSelectAssigned") {
-                                loadAssignedTasks()
-                                loadSupportTasks()
-                            }
-                        }
-                    }
-                })
+
+        function setTaskMeta(metaTitle, id, value, callback) {
+            var key = 'taskmeta-' + metaTitle + '-' + id,
+            data = {}
+
+            data[key] = value
+       
+            chrome.storage.sync.set(data,function () {
+                console.log('set meta',key,value)
+                typeof callback === 'function' && callback(data)
             })
+        }
 
-            taskList && taskListObserver.observe(taskList, {childList: true})
-
-            var timeEntriesObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if(mutation.addedNodes) {
-                        if(mutation.addedNodes[0]) {
-                            if(mutation.addedNodes[0].id === "ctl00_plcContentPlaceHolder_pnlSelectDaily") {
-                                injectClock()
-                            }
-                        }
-                    }
-                })
+        function getTaskMeta(metaTitle, id, callback) {
+            var key = 'taskmeta-' + metaTitle + '-' + id;
+            chrome.storage.sync.get(key, function (data) {
+                console.log('get meta',key,data[key])
+                callback(data[key])
             })
+        }
 
-            timeEntries && timeEntriesObserver.observe(timeEntries, {childList: true})
+        if(location.href.match('apps.caorda.com/dashboard/tasks/tasks.aspx')) {
+            var taskId = $.trim($('#ctl00_plcContentPlaceHolder_pnlProperties > .clsContainer:nth-child(3) > table > tbody > tr:first-child > td:nth-child(6)').text())
+            if(taskId) {
+                setTaskMeta('visited',taskId,true)
 
-
-            var $td, $clock, $hours, $minutes, start = new Date()
-
-            function injectClock() {
-                // console.log('inject clock')
-                var i, totalHours = 0, totalMinutes = 0
-
-                ;(function (m){
-                    if(m) {
-                        totalMinutes = m[2]
-                        totalHours = m[1]
-                    }
-                }(/^(?:([0-9]+)h\s)?(?:([0-9]+)m)$/.exec($('#ctl00_plcContentPlaceHolder_lblTotalTime').text())))
-
-                if (JSON.parse(localStorage.getItem('startHours')) === null) {
-                    localStorage.setItem('startHours', 8)
-                }
-
-                if (JSON.parse(localStorage.getItem('startMinutes')) === null) {
-                    localStorage.setItem('startMinutes', 0)
-                }
-
-                $div = $('<div>')
-                $clock = $('<span>')
-                $hours = $('<select>')
-                $minutes = $('<select>')
-
-                for(i = 7; i <= 18; i++ ) {
-                    $hours.append($('<option value="' + i + '">' + (function(i) {
-                        if(i > 12) {
-                            return (i - 12)
-                        } else {
-                            return i
-                        }
-                    })(i) + '</option>'))
-                }
-                $hours.find('option[value="' + JSON.parse(localStorage.getItem('startHours')) + '"]').attr('selected',true)
-
-                $minutes.append($('<option value="0">00</option>'))
-                $minutes.append($('<option value="5">05</option>'))
-                for(i = 5; i <= 55; i+=5 ) {
-                    $minutes.append($('<option value="' + i + '">' + i + '</option>'))
-                }
-                $minutes.find('option[value="' + JSON.parse(localStorage.getItem('startMinutes')) + '"]').attr('selected',true)
-
-
-                $div.css({'font-weight':'bold', 'position':'absolute', 'padding-bottom':'3px', 'bottom':'0px','right':'7px','line-height':'20px'})
+                var $button = $('<a class="clsButton clsSmall clsBlue" style="display:inline-block;width:100px;">Mark as Unread</a>')
+                $('#ctl00_plcContentPlaceHolder_pnlProperties > .clsContainer:nth-child(3) > table > tbody > tr:first-child > td:nth-child(6)').append($button)
                 
-                $div.append($clock)
-                $div.append('<span>&nbsp;</span>')
-                $div.append($hours)
-                $div.append('<span>:</span>')
-                $div.append($minutes)
+                $button.on('click', function (e) {
 
-                $clock.siblings().hide()
-
-                $div.on('mouseenter',function () {
-                    $clock.siblings().show()
-                    $clock.hide()
-
-                    $div.css({'padding-bottom':'203px','bottom':'-200px'})
-                })
-
-                $div.on('mouseleave',function () {
-                    $clock.siblings().hide()
-                    $clock.show()
-                    $div.css({'padding-bottom':'3px','bottom':'0px'})
-                })
-
-                $hours.on('change', setStartTime)
-                $minutes.on('change', setStartTime)
-
-                $('#ctl00_plcContentPlaceHolder_pnlSelectDaily').css({'position':'relative','min-height':'100px'}).append($div)
-
-                start = new Date()
-
-
-                setStartTime()
-
-                function setStartTime() {
-                    localStorage.setItem("startHours",$hours[0].value)
-                    localStorage.setItem("startMinutes",$minutes[0].value)
-                    start.setHours($hours[0].value)
-                    start.setMinutes($minutes[0].value)
-                    start.setSeconds(0)
-                    updateClock()
-                }
-
-                function updateClock() {
-                    var diff = Date.now() - start
-
-                    var seconds = parseInt(diff / 1000)
-
-                    var hours = parseInt(seconds / 3600, 10)
-                    seconds = seconds % 3600
-
-                    var minutes = parseInt(seconds / 60, 10)
-                    seconds = seconds % 60
-
-                    $clock.html('Worked: ' + (hours > 0 ? hours + 'h&nbsp;' : '') + (minutes > 0 ? minutes + 'm' : '0m'))
-                }
-
-                setInterval(updateClock, 200)
-            }
-
-
-            function loadAssignedTasks() {
-                // console.log('loadAssignedTasks')
-                chrome.storage.local.get('assignedTasks',function (items) {
-                    var localTasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
-                    savedTasks = items['assignedTasks'],
-                    mergedTasks = mergeAssignedTasks(localTasks,savedTasks)
-
-                    chrome.storage.local.set({'assignedTasks':mergedTasks},function () {
-                        renderTaskTable("Assigned Tasks", mergedTasks, true)
-                    })
-                })
-            }
-
-            function mergeAssignedTasks(localTasks,savedTasks) {
-                var resultTasks = []
-                _.forEach(localTasks,function (element, index, array) {
-                    resultTasks.push(_.assign(element,findTask(element.id,savedTasks)))
-                })
-                return resultTasks
-            }
-
-            function findTask(id,tasks) {
-                return _.find(savedTasks, function (element, index, array) {
-                    return element.id == id;
-                })
-            }
-
-            function renderTaskTable(title, tasks, showPriorityColumn) {
-
-                var $taskTable = $($.render.tasktable({'title':title,'tasks':tasks, 'showPriorityColumn': showPriorityColumn}))
-
-                $taskTable.find('[data-href]').on('click', function (e) {
-                    if( $(e.target).closest('a[href]').length ) {
-                        return
-                    }
-                    // console.log($(this).data('href'))
-                    document.location.href = $(this).data('href')
+                    setTaskMeta('visited',taskId,false)
                     e.preventDefault()
                 })
-
-                $taskTable.find('[data-actions]').hover(
-                    function (e) {
-                        $(this).parent().addClass('show-actions')
-                    },
-                    function (e) {
-                        $(this).parent().removeClass('show-actions')
-                    }
-                )
-
-                $taskTable.find('input.notes').on('click', function (e) {
-                    e.stopPropagation()
-                })
-
-
-                $taskTable.find('input.notes').on('blur', function (e) {
-                    saveTaskNote($(this).data('task-id'),this.value)
-                })
-                $('#ctl00_plcContentPlaceHolder_pnlSelectAssigned').before($taskTable)
             }
+        }
 
-            function saveTaskNote(id, note) {
 
-                chrome.storage.local.get('assignedTasks',function (items) {
-                    _.forEach(items['assignedTasks'],function (element, index, array) {
-                        if(element.id == id) {
-                            console.log('set note')
-                            array[index].note = note
-                            return false
+        if(location.href.match('apps.caorda.com/dashboard/tasks/tasklist.aspx')) {
+            var taskList = $('#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_pnlSelectAssignedPanel,#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_grdSelectPanel')[0]
+            var timeEntries = $('#ctl00_plcContentPlaceHolder_ctl00_plcContentPlaceHolder_pnlSelectDailyPanel')[0]
+
+                var taskListObserver = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if(mutation.addedNodes) {
+                            if(mutation.addedNodes[0]) {
+                                if(mutation.addedNodes[0].id === "ctl00_plcContentPlaceHolder_pnlSelectAssigned") {
+                                    loadAssignedTasks()
+                                    loadSupportTasks()
+                                }
+                            }
                         }
                     })
+                })
 
-                    chrome.storage.local.set(items,function () {
+
+                var timeEntriesObserver = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if(mutation.addedNodes) {
+                            if(mutation.addedNodes[0]) {
+                                if(mutation.addedNodes[0].id === "ctl00_plcContentPlaceHolder_pnlSelectDaily") {
+                                    injectClock()
+                                }
+                            }
+                        }
                     })
                 })
-            }
 
 
-            function loadSupportTasks() {
-                    // console.log('loadSupportTasks')
-                    $.get('//apps.caorda.com/dashboard/tasks/tasks.aspx?Action=LoadAssignee&AssigneeUserID=11626&TaskStatusID=2')
-                    .done(function (data) {
-                        var tasks = getTasksFromTable($(data).find('#ctl00_plcContentPlaceHolder_grdSelect'))
-                        var savedTasks
-                        renderTaskTable('Support Tasks', tasks)
-                    })
-            }
+                var $td, $clock, $hours, $minutes, start = new Date()
 
-            function getTasksFromTable($table) {
-                var tasks = [], $head = $table.find('tr.clsHeader')
+                function injectClock() {
+                    // console.log('inject clock')
+                    var i, totalHours = 0, totalMinutes = 0
 
-                columns = {
-                    priority: $head.find('th:contains("#")').index(),
-                    created: $head.find('th:contains("Created")').index(),
-                    due: $head.find('th:contains("Due")').index(),
-                    client: $head.find('th:contains("Client")').index(),
-                    title: $head.find('th:contains("Title")').index(),
-                    assignee: $head.find('th:contains("Assignee")').index(),
-                    owner: $head.find('th:contains("Owner")').index(),
-                    details: -1,
-                    queue: $head.find('th:contains("Queue")').index(),
-                    urgency: $head.find('th:contains("Urgency")').index(),
-                    status: $head.find('th:contains("Status")').index(),
-                    edit: -1,
-                    actions: $head.find('th:last-child').index()
-                }
+                    ;(function (m){
+                        if(m) {
+                            totalMinutes = m[2]
+                            totalHours = m[1]
+                        }
+                    }(/^(?:([0-9]+)h\s)?(?:([0-9]+)m)$/.exec($('#ctl00_plcContentPlaceHolder_lblTotalTime').text())))
 
-                if( columns.owner != -1 ) {
-                    // the details column is immediately to the right of the owner column
-                    columns.details = columns.owner + 1
-                }
-
-                if( columns.status != -1 ) {
-                    // the edit column is immediately to the right of the status column
-                    columns.edit = columns.status + 1
-                }
-
-                $table.find('tr.clsRow, tr.clsRowLast').each(function () {
-                    var actions = [], contact, emailLink
-
-                    var $this= $(this), td = $this.children('td'),
-                    detailsTd = $(td[columns.details]).find('.clsTaskDetails td')
-
-                    var task = {
-                        id: (function (onclick){
-                            var start = onclick.indexOf('(') + 1, end = onclick.indexOf(',')
-                            return parseInt(onclick.substring(start, end),10)
-                        })($(td[columns.actions]).find('li[id$="_liCreateTaskTime"] a').attr('onclick')),
-                        priority: $.trim($(td[columns.priority]).text()),
-                        created: $.trim($(td[columns.created]).text()),
-                        due: $.trim($(td[columns.due]).text()),
-                        title: $.trim($(td[columns.title]).text()),
-                        assignee: $.trim($(td[columns.assignee]).text()),
-                        owner: $.trim($(td[columns.owner]).text()),
-                        urgency: $(td[columns.urgency]).find('img').attr('title'),
-                        status: $(td[columns.status]).find('img').attr('title'),
-                        clientId: (function (href) {
-                            return parseInt(href.substring(href.indexOf('ID=') + 3),10)
-                        })($(td[columns.client]).find('a').attr('href')),
-                        clientName: $.trim($(td[columns.client]).find('a').text()),
-                        queue: $.trim($(detailsTd[1]).text()),
-                        projectName: $.trim($(detailsTd[3]).text()),
-                        estimatedTime: $.trim($(detailsTd[5]).text()),
-                        billableTime: $.trim($(detailsTd[7]).text()),
-                        nonBillableTime: $.trim($(detailsTd[9]).text()),
-                        totalTime: $.trim($(detailsTd[11]).text()),
-                        onBudget: $(detailsTd[13]).text().indexOf('On Budget') >= 0,
+                    if (JSON.parse(localStorage.getItem('startHours')) === null) {
+                        localStorage.setItem('startHours', 8)
                     }
 
-                    $this.find('.clsNestedListMenu.clsTask li ul a').each(function (index) {
+                    if (JSON.parse(localStorage.getItem('startMinutes')) === null) {
+                        localStorage.setItem('startMinutes', 0)
+                    }
+
+                    $div = $('<div>')
+                    $clock = $('<span>')
+                    $hours = $('<select>')
+                    $minutes = $('<select>')
+
+                    for(i = 7; i <= 18; i++ ) {
+                        $hours.append($('<option value="' + i + '">' + (function(i) {
+                            if(i > 12) {
+                                return (i - 12)
+                            } else {
+                                return i
+                            }
+                        })(i) + '</option>'))
+                    }
+                    $hours.find('option[value="' + JSON.parse(localStorage.getItem('startHours')) + '"]').attr('selected',true)
+
+                    $minutes.append($('<option value="0">00</option>'))
+                    $minutes.append($('<option value="5">05</option>'))
+                    for(i = 5; i <= 55; i+=5 ) {
+                        $minutes.append($('<option value="' + i + '">' + i + '</option>'))
+                    }
+                    $minutes.find('option[value="' + JSON.parse(localStorage.getItem('startMinutes')) + '"]').attr('selected',true)
+
+
+                    $div.css({'font-weight':'bold', 'position':'absolute', 'padding-bottom':'3px', 'bottom':'0px','right':'7px','line-height':'20px'})
+                    
+                    $div.append($clock)
+                    $div.append('<span>&nbsp;</span>')
+                    $div.append($hours)
+                    $div.append('<span>:</span>')
+                    $div.append($minutes)
+
+                    $clock.siblings().hide()
+
+                    $div.on('mouseenter',function () {
+                        $clock.siblings().show()
+                        $clock.hide()
+
+                        $div.css({'padding-bottom':'203px','bottom':'-200px'})
+                    })
+
+                    $div.on('mouseleave',function () {
+                        $clock.siblings().hide()
+                        $clock.show()
+                        $div.css({'padding-bottom':'3px','bottom':'0px'})
+                    })
+
+                    $hours.on('change', setStartTime)
+                    $minutes.on('change', setStartTime)
+
+                    $('#ctl00_plcContentPlaceHolder_pnlSelectDaily').css({'position':'relative','min-height':'100px'}).append($div)
+
+                    start = new Date()
+
+
+                    setStartTime()
+
+                    function setStartTime() {
+                        localStorage.setItem("startHours",$hours[0].value)
+                        localStorage.setItem("startMinutes",$minutes[0].value)
+                        start.setHours($hours[0].value)
+                        start.setMinutes($minutes[0].value)
+                        start.setSeconds(0)
+                        updateClock()
+                    }
+
+                    function updateClock() {
+                        var diff = Date.now() - start
+
+                        var seconds = parseInt(diff / 1000)
+
+                        var hours = parseInt(seconds / 3600, 10)
+                        seconds = seconds % 3600
+
+                        var minutes = parseInt(seconds / 60, 10)
+                        seconds = seconds % 60
+
+                        $clock.html('Worked: ' + (hours > 0 ? hours + 'h&nbsp;' : '') + (minutes > 0 ? minutes + 'm' : '0m'))
+                    }
+
+                    setInterval(updateClock, 200)
+                }
+
+
+                function loadAssignedTasks() {
+                    // console.log('loadAssignedTasks')
+                    var tasks = getTasksFromTable($('#ctl00_plcContentPlaceHolder_grdSelectAssigned'))
+
+                    renderTaskTable("Assigned Tasks", tasks, true)
+                }
+
+                function renderTaskTable(title, tasks, showPriorityColumn) {
+
+                    var $taskTable = $($.render.tasktable({'title':title,'tasks':tasks, 'showPriorityColumn': showPriorityColumn}))
+
+                    $taskTable.find('[data-href]').on('click', function (e) {
+                        if( $(e.target).closest('a[href]').length ) {
+                            return
+                        }
+                        // console.log($(this).data('href'))
+                        document.location.href = $(this).data('href')
+                        e.preventDefault()
+                    })
+
+                    $taskTable.find('[data-actions]').hover(
+                        function (e) {
+                            $(this).parent().addClass('show-actions')
+                        },
+                        function (e) {
+                            $(this).parent().removeClass('show-actions')
+                        }
+                    )
+
+                    $taskTable.find('tr[data-task-id]').each(function () {
                         var $this = $(this),
-                        text = $this.text(),
-                        action = {
-                            text: text,
-                            href: this.href,
-                            onclick: $this.attr('onclick')
-                        }
+                        taskId = $this.data('task-id')
 
-                        if(text.indexOf('C') === 0) {
-                            // Change Status to Complete
-                            action.icon = 'fa-check-square-o'
-                        }
-                        if(text.indexOf('As') === 0) {
-                            // Assign Task
-                            action.icon = 'fa-share'
-                        }
-                        if(text.indexOf('Vi') === 0) {
-                            // View Time Entires
-                            action.icon  ='fa-bar-chart'
-                        }
-                        if(text.indexOf('Ad') === 0) {
-                            // Add Time Entry
-                            action.icon = 'fa-clock-o'
-                        }
-                        actions.splice(0,0,action)
+                        getTaskMeta('visited',taskId,function (data) {
+                            var visited = !!data
+                            console.log(visited)
+
+                            if(!visited) {
+                                $this.addClass('status-unread')
+                            }
+                        })
                     })
 
-                    if(actions.length === 3) {
-                        actions.splice(1,0,{
-                                href: '#',
-                                className: 'disabled',
-                                onclick: 'return false',
-                                text: 'View Time Entires',
-                                icon: 'fa-bar-chart'
+
+                    //if(notesMeta) {
+                        var notesInputs = $taskTable.find('input.notes')
+                        
+                        notesInputs
+                        .on('click', function (e) {
+                            e.stopPropagation()
                         })
+                        .on('blur', function (e) {
+                            setTaskMeta('note',$(this).data('task-id'),this.value)
+                        })
+                        .each(function (i,e) {
+                            var $this = $(this)
+
+                            $this.attr('tabindex',i)
+
+                            getTaskMeta('note',$this.data('task-id'),function (note) {
+                                $this.attr('value',note)
+                            })
+                        })
+
+
+                        $(document).on('keydown', function (e) {
+                            if(e.keyCode == 9 || e.keyCode == 13 && notesInputs.find(e.target)) {
+                                var $target = $(e.target)
+
+                                console.log($target.parent())
+
+                                var direction = e.shiftKey ? 'prev' : 'next'
+
+                                $target.closest('tr')[direction]().find('input.notes').focus().select()
+
+                                e.preventDefault()
+                                e.stopPropagation()
+                            }
+                        })
+                   // }
+
+                    $('#ctl00_plcContentPlaceHolder_pnlSelectAssigned').before($taskTable)
+                }
+
+                function loadSupportTasks() {
+                        // console.log('loadSupportTasks')
+                        $.get('//apps.caorda.com/dashboard/tasks/tasks.aspx?Action=LoadAssignee&AssigneeUserID=11626&TaskStatusID=2')
+                        .done(function (data) {
+                            var tasks = getTasksFromTable($(data).find('#ctl00_plcContentPlaceHolder_grdSelect'))
+                            var savedTasks
+                            renderTaskTable('Support Tasks', tasks, false)
+                        })
+                }
+
+                function getTasksFromTable($table) {
+                    var tasks = [], $head = $table.find('tr.clsHeader')
+
+                    columns = {
+                        priority: $head.find('th:contains("#")').index(),
+                        created: $head.find('th:contains("Created")').index(),
+                        due: $head.find('th:contains("Due")').index(),
+                        client: $head.find('th:contains("Client")').index(),
+                        title: $head.find('th:contains("Title")').index(),
+                        assignee: $head.find('th:contains("Assignee")').index(),
+                        owner: $head.find('th:contains("Owner")').index(),
+                        details: -1,
+                        queue: $head.find('th:contains("Queue")').index(),
+                        urgency: $head.find('th:contains("Urgency")').index(),
+                        status: $head.find('th:contains("Status")').index(),
+                        edit: -1,
+                        actions: $head.find('th:last-child').index()
                     }
 
+                    if( columns.owner != -1 ) {
+                        // the details column is immediately to the right of the owner column
+                        columns.details = columns.owner + 1
+                    }
 
-                    contact = _.find(contacts, function (contact) {
-                        return contact.shortName === task.owner
-                    }),
+                    if( columns.status != -1 ) {
+                        // the edit column is immediately to the right of the status column
+                        columns.edit = columns.status + 1
+                    }
 
-                    emailLink = 'mailto:' + contact.email + '?subject=' + encodeURIComponent(task.clientName + ' - ' + task.title) + '&body=' + encodeURIComponent('\nhttps://apps.caorda.com/dashboard/tasks/tasks.aspx?Action=LoadTask&TaskID=' + task.id)
+                    $table.find('tr.clsRow, tr.clsRowLast').each(function () {
+                        var actions = [], contact, emailLink
 
-                    task.statusClass = 'status-' + task.status.replace(/\W+/,'-').toLowerCase()
-                    task.urgencyClass = 'urgency-' + task.urgency.replace(/\W+/,'-').toLowerCase()
-                    task.queueClass = 'queue-' + task.queue.replace(/\W+/,'-').toLowerCase()
-                    task.emailLink = emailLink
-                    task.actions = actions
+                        var $this= $(this), td = $this.children('td'),
+                        detailsTd = $(td[columns.details]).find('.clsTaskDetails td')
 
-                    tasks.push(task)
-                })
-             return tasks
+                        var task = {
+                            id: (function (onclick){
+                                var start = onclick.indexOf('(') + 1, end = onclick.indexOf(',')
+                                return parseInt(onclick.substring(start, end),10)
+                            })($(td[columns.actions]).find('li[id$="_liCreateTaskTime"] a').attr('onclick')),
+                            priority: $.trim($(td[columns.priority]).text()),
+                            created: $.trim($(td[columns.created]).text()),
+                            due: $.trim($(td[columns.due]).text()),
+                            title: $.trim($(td[columns.title]).text()),
+                            assignee: $.trim($(td[columns.assignee]).text()),
+                            owner: $.trim($(td[columns.owner]).text()),
+                            urgency: $(td[columns.urgency]).find('img').attr('title'),
+                            status: $(td[columns.status]).find('img').attr('title'),
+                            clientId: (function (href) {
+                                return parseInt(href.substring(href.indexOf('ID=') + 3),10)
+                            })($(td[columns.client]).find('a').attr('href')),
+                            clientName: $.trim($(td[columns.client]).find('a').text()),
+                            queue: $.trim($(detailsTd[1]).text()),
+                            projectName: $.trim($(detailsTd[3]).text()),
+                            estimatedTime: $.trim($(detailsTd[5]).text()),
+                            billableTime: $.trim($(detailsTd[7]).text()),
+                            nonBillableTime: $.trim($(detailsTd[9]).text()),
+                            totalTime: $.trim($(detailsTd[11]).text()),
+                            onBudget: $(detailsTd[13]).text().indexOf('On Budget') >= 0,
+                        }
+
+                        $this.find('.clsNestedListMenu.clsTask li ul a').each(function (index) {
+                            var $this = $(this),
+                            text = $this.text(),
+                            action = {
+                                text: text,
+                                href: this.href,
+                                onclick: $this.attr('onclick')
+                            }
+
+                            if(text.indexOf('C') === 0) {
+                                // Change Status to Complete
+                                action.icon = 'fa-check-square-o'
+                            }
+                            if(text.indexOf('As') === 0) {
+                                // Assign Task
+                                action.icon = 'fa-share'
+                            }
+                            if(text.indexOf('Vi') === 0) {
+                                // View Time Entires
+                                action.icon  ='fa-bar-chart'
+                            }
+                            if(text.indexOf('Ad') === 0) {
+                                // Add Time Entry
+                                action.icon = 'fa-clock-o'
+                            }
+                            actions.splice(0,0,action)
+                        })
+
+                        if(actions.length === 3) {
+                            actions.splice(1,0,{
+                                    href: '#',
+                                    className: 'disabled',
+                                    onclick: 'return false',
+                                    text: 'View Time Entires',
+                                    icon: 'fa-bar-chart'
+                            })
+                        }
+
+
+                        contact = _.find(contacts, function (contact) {
+                            return contact.shortName === task.owner
+                        }),
+
+                        emailLink = 'mailto:' + contact.email + '?subject=' + encodeURIComponent(task.clientName + ' - ' + task.title) + '&body=' + encodeURIComponent('\nhttps://apps.caorda.com/dashboard/tasks/tasks.aspx?Action=LoadTask&TaskID=' + task.id)
+
+                        task.statusClass = 'status-' + task.status.replace(/\W+/,'-').toLowerCase()
+                        task.urgencyClass = 'urgency-' + task.urgency.replace(/\W+/,'-').toLowerCase()
+                        task.queueClass = 'queue-' + task.queue.replace(/\W+/,'-').toLowerCase()
+                        task.emailLink = emailLink
+                        task.actions = actions
+
+                        tasks.push(task)
+                    })
+                return tasks
             }
 
-            if(taskList) {
-                loadAssignedTasks()
-                loadSupportTasks()
-                injectClock()
-            }
+            loadAssignedTasks()
+            loadSupportTasks()
+            injectClock()
+
+            taskList && taskListObserver.observe(taskList, {childList: true})
+            timeEntries && timeEntriesObserver.observe(timeEntries, {childList: true})
+        }
 
 
 
@@ -601,7 +642,7 @@ $(document).ready(function () {
         var taskId = parseInt($.trim($('#ctl00_plcContentPlaceHolder_pnlProperties > div.clsContainer:nth-child(3) > table.clsStandard > tbody > tr:nth-child(1) > td:nth-child(6)').text()), 10)
 
         if(!_.isNaN(taskId)) {
-            var savedTasks = chrome.storage.local.get('tasks')
+            var savedTasks = chrome.storage.sync.get('tasks')
 
             if(!savedTasks) {
                 savedTasks = []
@@ -622,3 +663,4 @@ $(document).ready(function () {
 
 
     })
+}
