@@ -42,7 +42,7 @@
             <ul class="group-actions button-group">
               <li><a href="#" onclick="return false" class="button secondary"><i class="fa fa-caret-right"></i></a></li>
               {{for actions}}
-                <li><a href="{{:href}}" title="{{:text}}" {{if onclick}}onclick="{{:onclick}}"{{/if}} class="button {{:className}}"><i class="fa {{:icon}}"></i></a></li>
+                <li><a href="{{:href}}" title="{{:text}}" onclick="{{:onclick}}" class="button {{:className}}"><i class="fa {{:icon}}"></i></a></li>
               {{/for}}
             </ul>
           </td>

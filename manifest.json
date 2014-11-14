@@ -32,7 +32,7 @@
       ],
 
       "js": [
-        "src/js/vendor/angular.js",
+        "src/js/vendor/autolinker.js",
         "node_modules/jquery/dist/jquery.min.js",
         "node_modules/lodash/dist/lodash.min.js",
         "src/js/vendor/jsrender.js",

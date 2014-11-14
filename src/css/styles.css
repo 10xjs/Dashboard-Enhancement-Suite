@@ -190,3 +190,15 @@ input[type='text'].notes {
 input[type='text'].notes:focus {
   background: rgba(255,255,255,0.5) !important;
 }
+
+
+a.autolinked {
+  color: inherit;
+  text-decoration: inherit;
+  background: rgba(96, 171, 69, 0.1);
+}
+
+a.autolinked:hover {
+  color: inherit;
+  background: rgba(96, 171, 69, 0.25);
+}
