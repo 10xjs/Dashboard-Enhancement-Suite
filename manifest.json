@@ -15,13 +15,13 @@
     "default_popup": "src/page_action/page_action.html"
   },
   "permissions": [
-    "https://apps.caorda.com/dashboard*",
+    "*://apps.caorda.com/dashboard*",
     "storage"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://apps.caorda.com/dashboard/tasks/*"
+        "*://apps.caorda.com/dashboard/tasks/*"
       ],
       "css": [
         "src/css/normalize.css",
