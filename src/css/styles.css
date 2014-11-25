@@ -202,3 +202,27 @@ a.autolinked:hover {
   color: inherit;
   background: rgba(96, 171, 69, 0.25);
 }
+
+html.fullscreen-description body {
+  overflow: hidden;
+}
+
+html.fullscreen-description #description-display {
+  z-index: 3800;
+  background: #fff;
+  position: fixed;
+  top: 24px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  height: auto;
+  resize: none;
+}
+
+html.fullscreen-description .toggle-fullscreen-description {
+  z-index: 3900;
+  position: fixed;
+  top: 36px;
+  right: 6px;
+}

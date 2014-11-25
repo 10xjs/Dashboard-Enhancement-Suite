@@ -455,12 +455,22 @@ function initExtension(){
 
             var $edit = $('<a class="clsButton clsSmall clsBlue" href="#" style="display:inline-block;padding-left: 4px; padding-right: 4px;">Edit Description</a>')
 
-            $editor.parent().prepend($edit)
+            var $full = $('<a class="clsButton clsSmall clsBlue toggle-fullscreen-description" href="#" style="display:inline-block;padding-left: 4px; padding-right: 4px;">Fullscreen</a>')
+
+            $editor.parent().prepend($full).prepend('&nbsp;').prepend($edit)
 
             $edit.one('click', function (e) {
                 $description.remove()
                 $editor.show()
                 $edit.remove()
+                $full.remove()
+
+                e.preventDefault()
+            })
+
+            $full.on('click', function (e) {
+                $('html').toggleClass('fullscreen-description')
+                e.preventDefault()
             })
 
 
