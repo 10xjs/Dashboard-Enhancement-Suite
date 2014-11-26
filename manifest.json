@@ -19,7 +19,7 @@
     "storage"
   ],
   "content_scripts": [
-  {
+    {
       "matches": [
         "*://apps.caorda.com/dashboard/*"
       ],
