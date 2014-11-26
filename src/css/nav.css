@@ -1,0 +1,12 @@
+.rmSlide {
+  display: none !important;
+}
+
+.rmItem:hover > .rmSlide {
+  display: block !important;
+}
+
+.rmVertical {
+  top: 0 !important;
+  left: 0 !important;
+}

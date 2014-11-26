@@ -19,6 +19,14 @@
     "storage"
   ],
   "content_scripts": [
+  {
+      "matches": [
+        "*://apps.caorda.com/dashboard/*"
+      ],
+      "css": [
+        "src/css/nav.css"
+      ]
+    },
     {
       "matches": [
         "*://apps.caorda.com/dashboard/tasks/*"

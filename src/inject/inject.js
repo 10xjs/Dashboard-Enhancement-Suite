@@ -457,7 +457,9 @@ function initExtension(){
 
             var $full = $('<a class="clsButton clsSmall clsBlue toggle-fullscreen-description" href="#" style="display:inline-block;padding-left: 4px; padding-right: 4px;">Fullscreen</a>')
 
-            $editor.parent().prepend($full).prepend('&nbsp;').prepend($edit)
+            var $pop = $('<a class="clsButton clsSmall clsBlue" href="#" style="display:inline-block;padding-left: 4px; padding-right: 4px;">Pop Out</a>')
+
+            $editor.parent().prepend($pop).prepend('&nbsp;').prepend($full).prepend('&nbsp;').prepend($edit)
 
             $edit.one('click', function (e) {
                 $description.remove()
@@ -471,6 +473,29 @@ function initExtension(){
             $full.on('click', function (e) {
                 $('html').toggleClass('fullscreen-description')
                 e.preventDefault()
+            })
+
+            $pop.on('click', function (e) {
+                var title = $('#ctl00_plcContentPlaceHolder_txtName').val()
+                var clientName = $('#ctl00_plcContentPlaceHolder_lnkDomainName').text()
+                var clientURL = $('#ctl00_plcContentPlaceHolder_lnkDomainName').attr('href')
+                console.log('title', title)
+                var w = window.open(window.location.origin, title, 'width=600,height=600,resizeable,scrollbars')
+                w.document.write('<html>')
+                w.document.write('  <head>')
+                w.document.write('    <title>' + title + '</title>')
+                w.document.write('    <style>body{font-family:arial;font-size:16px;}a{color:#60AB45;}a.autolinked{color:inherit;text-decoration:inherit;background:rgba(96, 171, 69, 0.0980392);}</style>')
+                w.document.write('  </head>')
+                w.document.write('  <body>')
+                w.document.write('    <p>')
+                w.document.write('      <strong><a onclick="window.close()" href="' + window.location + '" target="_blank">' + title + '</a></strong>')
+                w.document.write('      - <a onclick="window.close()" href="' + clientURL + '" target="_blank">' + clientName + '</a>')
+                w.document.write('    </p>')
+                w.document.write('    <hr>')
+                w.document.write('    <div>' + description + '</div>')
+                w.document.write('  </body>')
+                w.document.write('</html>')
+                w.document.close()
             })
 
 
