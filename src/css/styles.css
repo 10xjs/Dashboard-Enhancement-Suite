@@ -227,3 +227,7 @@ html.fullscreen-description .toggle-fullscreen-description {
   right: 6px;
 }
 
+/* Add some hover highlighting */
+.clsRow:hover{
+  background:#B7D1EF !important;
+}
