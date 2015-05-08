@@ -1,0 +1,59 @@
+body {
+  /*margin: 0;*/
+  background: #fff;
+}
+
+#divContainer {
+  width: 100%;
+  min-width: 960px;
+}
+
+/*========================================
+=            Dashboard header            =
+========================================*/
+
+#divContainer #divHeader {
+  left: 0;
+  width: 100%;
+}
+
+#divContainer #divHeader #divBanner {
+  width: 100%;
+}
+
+#divContainer #divHeader #divToolbar {
+  width: 100%;
+  border-left: 0;
+  border-right: 0;
+}
+
+#divContainer #divHeader #divToolbar #divLogout {
+  left: auto;
+  right: 0px;
+}
+
+/*====================================
+=            Content Area            =
+====================================*/
+
+#divContainer #divContent {
+  left: 0;
+  width: 100%;
+}
+
+#divContainer #divContent #divHeading {
+  width: 100%;
+}
+
+.clsContainer {
+  width: calc(100% - 2px);
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
+.clsCaordaGridView {
+  width: calc(100% - 2px) !important;
+  margin-left: 0;
+  margin-right: 0;
+}
