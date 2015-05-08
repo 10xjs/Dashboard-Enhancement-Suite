@@ -1,6 +1,0 @@
-/* styles that are loaded all of the time */
-
-
-.confirmation-disabled #ctl00_plcContentPlaceHolder_radAjaxPanelNotifications .clsCaordaGridView a[title=Delete]:not([data-des-clone]) {
-  display: none !important;
-}
