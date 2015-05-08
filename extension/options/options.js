@@ -225,7 +225,9 @@
 	      loading: optionsStore.isLoading(),
 	      betterNav: optionsStore.getOption('betterNav'),
 	      betterNavDebug: optionsStore.getOption('betterNavDebug'),
-	      disableNotificationConfirmation: optionsStore.getOption('disableNotificationConfirmation')
+	      disableNotificationConfirmation: optionsStore.getOption('disableNotificationConfirmation'),
+	      fullWidth: optionsStore.getOption('fullWidth'),
+	      notificationBadges: optionsStore.getOption('notificationBadges')
 	    };
 	  },
 	
@@ -255,13 +257,15 @@
 	
 	    var options = [];
 	
-	    options.push(React.createElement("div", {key: "betterNav"}, React.createElement(CheckBox, {name: "betterNav", label: "Enable improved navigation menu", checked: this.state.betterNav, onChange: this.handleChange})));
+	    options.push(React.createElement("div", {key: "betterNav"}, React.createElement(CheckBox, {name: "betterNav", label: "Enable improved navigation menu.", checked: this.state.betterNav, onChange: this.handleChange})));
 	
 	    if (this.state.betterNav) {
-	      options.push(React.createElement("div", {style: { marginLeft: 20}, key: "betterNavDebug"}, React.createElement(CheckBox, {name: "betterNavDebug", label: "Show menu debug margins", checked: this.state.betterNavDebug, onChange: this.handleChange})));
+	      options.push(React.createElement("div", {style: { marginLeft: 20}, key: "betterNavDebug"}, React.createElement(CheckBox, {name: "betterNavDebug", label: "Show menu aim debug margins.", checked: this.state.betterNavDebug, onChange: this.handleChange})));
 	    }
 	
-	    options.push(React.createElement("div", {key: "disableNotificationConfirmation"}, React.createElement(CheckBox, {name: "disableNotificationConfirmation", label: "Disable delete confirmation for individual notifications", checked: this.state.disableNotificationConfirmation, onChange: this.handleChange})));
+	    options.push(React.createElement("div", {key: "disableNotificationConfirmation"}, React.createElement(CheckBox, {name: "disableNotificationConfirmation.", label: "Disable delete confirmation for individual notifications", checked: this.state.disableNotificationConfirmation, onChange: this.handleChange})));
+	    // options.push(<div key="fullWidth"><CheckBox name="fullWidth" label="Enable flexible full-width layout." checked={this.state.fullWidth} onChange={this.handleChange} /></div>);
+	    options.push(React.createElement("div", {key: "notificationBadges"}, React.createElement(CheckBox, {name: "notificationBadges", label: "Show additional notification count badges.", checked: this.state.notificationBadges, onChange: this.handleChange})));
 	
 	  	return(
 	      React.createElement("div", null, 
@@ -13133,7 +13137,7 @@
 	var PooledClass = __webpack_require__(53);
 	var ReactBrowserEventEmitter = __webpack_require__(100);
 	var ReactInputSelection = __webpack_require__(144);
-	var ReactPutListenerQueue = __webpack_require__(146);
+	var ReactPutListenerQueue = __webpack_require__(145);
 	var Transaction = __webpack_require__(118);
 	
 	var assign = __webpack_require__(33);
@@ -13313,7 +13317,7 @@
 	var ReactInputSelection = __webpack_require__(144);
 	var SyntheticEvent = __webpack_require__(125);
 	
-	var getActiveElement = __webpack_require__(145);
+	var getActiveElement = __webpack_require__(146);
 	var isTextInputElement = __webpack_require__(134);
 	var keyOf = __webpack_require__(64);
 	var shallowEqual = __webpack_require__(114);
@@ -15522,7 +15526,7 @@
 	
 	var PooledClass = __webpack_require__(53);
 	var CallbackQueue = __webpack_require__(117);
-	var ReactPutListenerQueue = __webpack_require__(146);
+	var ReactPutListenerQueue = __webpack_require__(145);
 	var Transaction = __webpack_require__(118);
 	
 	var assign = __webpack_require__(33);
@@ -20295,7 +20299,7 @@
 	
 	var containsNode = __webpack_require__(103);
 	var focusNode = __webpack_require__(177);
-	var getActiveElement = __webpack_require__(145);
+	var getActiveElement = __webpack_require__(146);
 	
 	function isInDocument(node) {
 	  return containsNode(document.documentElement, node);
@@ -20425,39 +20429,6 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule getActiveElement
-	 * @typechecks
-	 */
-	
-	/**
-	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
-	 * not safe to call document.activeElement if there is nothing focused.
-	 *
-	 * The activeElement will be null only if the document body is not yet defined.
-	 */
-	function getActiveElement() /*?DOMElement*/ {
-	  try {
-	    return document.activeElement || document.body;
-	  } catch (e) {
-	    return document.body;
-	  }
-	}
-	
-	module.exports = getActiveElement;
-
-
-/***/ },
-/* 146 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule ReactPutListenerQueue
 	 */
 	
@@ -20504,6 +20475,39 @@
 	PooledClass.addPoolingTo(ReactPutListenerQueue);
 	
 	module.exports = ReactPutListenerQueue;
+
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule getActiveElement
+	 * @typechecks
+	 */
+	
+	/**
+	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
+	 * not safe to call document.activeElement if there is nothing focused.
+	 *
+	 * The activeElement will be null only if the document body is not yet defined.
+	 */
+	function getActiveElement() /*?DOMElement*/ {
+	  try {
+	    return document.activeElement || document.body;
+	  } catch (e) {
+	    return document.body;
+	  }
+	}
+	
+	module.exports = getActiveElement;
 
 
 /***/ },
@@ -22140,7 +22144,7 @@
 	
 	"use strict";
 	
-	var camelize = __webpack_require__(182);
+	var camelize = __webpack_require__(183);
 	
 	var msPattern = /^-ms-/;
 	
@@ -22248,7 +22252,7 @@
 	
 	"use strict";
 	
-	var hyphenate = __webpack_require__(183);
+	var hyphenate = __webpack_require__(182);
 	
 	var msPattern = /^ms-/;
 	
@@ -23179,42 +23183,6 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule camelize
-	 * @typechecks
-	 */
-	
-	var _hyphenPattern = /-(.)/g;
-	
-	/**
-	 * Camelcases a hyphenated string, for example:
-	 *
-	 *   > camelize('background-color')
-	 *   < "backgroundColor"
-	 *
-	 * @param {string} string
-	 * @return {string}
-	 */
-	function camelize(string) {
-	  return string.replace(_hyphenPattern, function(_, character) {
-	    return character.toUpperCase();
-	  });
-	}
-	
-	module.exports = camelize;
-
-
-/***/ },
-/* 183 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule hyphenate
 	 * @typechecks
 	 */
@@ -23238,6 +23206,42 @@
 	}
 	
 	module.exports = hyphenate;
+
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule camelize
+	 * @typechecks
+	 */
+	
+	var _hyphenPattern = /-(.)/g;
+	
+	/**
+	 * Camelcases a hyphenated string, for example:
+	 *
+	 *   > camelize('background-color')
+	 *   < "backgroundColor"
+	 *
+	 * @param {string} string
+	 * @return {string}
+	 */
+	function camelize(string) {
+	  return string.replace(_hyphenPattern, function(_, character) {
+	    return character.toUpperCase();
+	  });
+	}
+	
+	module.exports = camelize;
 
 
 /***/ },

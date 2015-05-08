@@ -38,7 +38,9 @@ var OptionsContainer = React.createClass({
       loading: optionsStore.isLoading(),
       betterNav: optionsStore.getOption('betterNav'),
       betterNavDebug: optionsStore.getOption('betterNavDebug'),
-      disableNotificationConfirmation: optionsStore.getOption('disableNotificationConfirmation')
+      disableNotificationConfirmation: optionsStore.getOption('disableNotificationConfirmation'),
+      fullWidth: optionsStore.getOption('fullWidth'),
+      notificationBadges: optionsStore.getOption('notificationBadges')
     };
   },
 
@@ -68,13 +70,15 @@ var OptionsContainer = React.createClass({
 
     var options = [];
 
-    options.push(<div key="betterNav"><CheckBox name="betterNav" label="Enable improved navigation menu" checked={this.state.betterNav} onChange={this.handleChange} /></div>);
+    options.push(<div key="betterNav"><CheckBox name="betterNav" label="Enable improved navigation menu." checked={this.state.betterNav} onChange={this.handleChange} /></div>);
 
     if (this.state.betterNav) {
-      options.push(<div style={{ marginLeft: 20 }} key="betterNavDebug"><CheckBox name="betterNavDebug" label="Show menu debug margins" checked={this.state.betterNavDebug} onChange={this.handleChange} /></div>);
+      options.push(<div style={{ marginLeft: 20 }} key="betterNavDebug"><CheckBox name="betterNavDebug" label="Show menu aim debug margins." checked={this.state.betterNavDebug} onChange={this.handleChange} /></div>);
     }
 
-    options.push(<div key="disableNotificationConfirmation"><CheckBox name="disableNotificationConfirmation" label="Disable delete confirmation for individual notifications" checked={this.state.disableNotificationConfirmation} onChange={this.handleChange} /></div>);
+    options.push(<div key="disableNotificationConfirmation"><CheckBox name="disableNotificationConfirmation." label="Disable delete confirmation for individual notifications" checked={this.state.disableNotificationConfirmation} onChange={this.handleChange} /></div>);
+    // options.push(<div key="fullWidth"><CheckBox name="fullWidth" label="Enable flexible full-width layout." checked={this.state.fullWidth} onChange={this.handleChange} /></div>);
+    options.push(<div key="notificationBadges"><CheckBox name="notificationBadges" label="Show additional notification count badges." checked={this.state.notificationBadges} onChange={this.handleChange} /></div>);
 
   	return(
       <div>
