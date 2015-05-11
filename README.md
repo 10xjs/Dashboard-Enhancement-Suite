@@ -2,17 +2,8 @@
 Adds features and improvements to the caorda dashbaord
 
 ## Installation
-Download and extract the repository [ZIP archive](https://github.com/nealgranger/Dashboard-Enhancement-Suite/archive/master.zip) or clone to your machine.
+Install from the chome web store:  [Dashboard Enhancement Suite](https://chrome.google.com/webstore/detail/dashboard-enhancement-sui/bbheiamdpmdbmimancpaicialgpcpjlj)  
 
-    git clone https://github.com/nealgranger/Dashboard-Enhancement-Suite.git
-
-Visit the chrome extension settings page: `chrome://extensions/`
-
-Ensure that developte mode is enabled then click 'Load Unpacked Extension..."  
-  
-[![Developer Mode](http://i.imgur.com/iyjgNke.png)](chrome://extensions/)  [![Load Unpacked Extension...](http://i.imgur.com/q4l3KSd.png)](chrome://extensions/)
-
-Navigate to the `/extension` directory inside the downloaded or cloned repository and click `OK`
 
 ## Options Page
 To visit the options page, click the [![options](http://i.imgur.com/wTt0Ujd.png)](chrome-extension://anfeheemhnddmckpgkcdaokkdbhkdddb/options/index.html) icon in the path bar from while on any dashbaord page.
