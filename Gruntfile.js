@@ -27,10 +27,16 @@ module.exports = function(grunt) {
   grunt.registerTask('manifest', 'Create manifest.json file', function() {
     var manifestJSON = require('./src/manifest').manifestJSON;
 
-    grunt.file.write('./extension/manifest.json', '/*DON\'T EDIT THIS FILE DIRECTLY*/\n\n' + manifestJSON);
+    grunt.file.write('./extension/manifest.json', manifestJSON);
+  });
+
+  grunt.registerTask('updates', 'Create manifest.json file', function() {
+    var updatesXML = require('./src/updates').updatesXML;
+
+    grunt.file.write('./extension/updates.xml', updatesXML);
   });
 
 
   grunt.loadNpmTasks('grunt-webpack');
-  grunt.registerTask('default', ['manifest','webpack']);
+  grunt.registerTask('default', ['updates','manifest','webpack']);
 };

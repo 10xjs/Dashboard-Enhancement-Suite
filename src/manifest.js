@@ -1,6 +1,9 @@
+var packageJSON = require('../package.json');
+
 var manifest = {
   name: "Dashboard Enhancement Suite",
-  version: require('../package.json').version,
+  version: packageJSON.version,
+  update_url: "https://raw.githubusercontent.com/nealgranger/Dashboard-Enhancement-Suite/master/extension/updates.xml",
   manifest_version: 2,
   options_page: "options/index.html",
   page_action: {
