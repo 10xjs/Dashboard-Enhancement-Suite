@@ -2,7 +2,7 @@ var optionsConfig = {
   betterNav: {
     type: 'checkbox',
     label: 'Enable improved navigation menu.',
-    default: false
+    default: true
   },
   betterNavDebug: {
     type: 'checkbox',

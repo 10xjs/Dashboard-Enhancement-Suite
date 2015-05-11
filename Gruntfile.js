@@ -30,13 +30,13 @@ module.exports = function(grunt) {
     grunt.file.write('./extension/manifest.json', manifestJSON);
   });
 
-  grunt.registerTask('updates', 'Create manifest.json file', function() {
-    var updatesXML = require('./src/updates').updatesXML;
+  // grunt.registerTask('updates', 'Create manifest.json file', function() {
+  //   var updatesXML = require('./src/updates').updatesXML;
 
-    grunt.file.write('./extension/updates.xml', updatesXML);
-  });
+  //   grunt.file.write('./extension/updates.xml', updatesXML);
+  // });
 
 
   grunt.loadNpmTasks('grunt-webpack');
-  grunt.registerTask('default', ['updates','manifest','webpack']);
+  grunt.registerTask('default', ['manifest','webpack']);
 };

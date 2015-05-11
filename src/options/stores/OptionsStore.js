@@ -28,7 +28,6 @@ var BuilderStore = createStore('OptionsStore', {
   },
 
   onGetOptionsSuccess: function(payload) {
-    console.log('getOptions', payload);
     this.options = update(this.options, { $merge: payload });
     this.loading = false;
     this.version = require('../../../package.json').version;
@@ -36,14 +35,12 @@ var BuilderStore = createStore('OptionsStore', {
   },
 
   onSetOptionStart: function(payload) {
-    console.log('setOptionStart', payload);
     this.options = update(this.options, { $merge: payload });
     // this.loading = true;
     this.emitChange();
   },
 
   onSetOptionSuccess: function() {
-    console.log('setOptionSuccess');
     // this.loading = false;
     this.emitChange();
   },
@@ -62,7 +59,7 @@ var BuilderStore = createStore('OptionsStore', {
   },
 
   getOption: function(option) {
-    if ('undefined' === this.options[option]) {
+    if ('undefined' === typeof this.options[option]) {
       this.options[option] = this.config[option].default;
     }
     return this.options[option];
