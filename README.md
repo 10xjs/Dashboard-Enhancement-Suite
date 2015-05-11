@@ -10,7 +10,7 @@ To visit the options page, click the [![options](http://i.imgur.com/wTt0Ujd.png)
 
 ### Available Options
  - __Enable improved navigation menu.__  
- Disable navigation menu aninmation and enable "[menu aim](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown)"
+ Disable navigation menu animation and enable "[menu aim](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown)"
  - __Disable delete confirmation for individual notifications.__  
  Individual notifications can be deleted immediately without a dialog appearing
  - __Show additional notification count badges.__  
