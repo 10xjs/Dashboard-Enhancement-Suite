@@ -90,7 +90,8 @@ var OptionsContainer = React.createClass({
     return {
       loading: optionsStore.isLoading(),
       options: optionsStore.getOptions(),
-      config: optionsStore.getConfig()
+      config: optionsStore.getConfig(),
+      version: optionsStore.getVersion()
     };
   },
 
@@ -102,12 +103,19 @@ var OptionsContainer = React.createClass({
     this.setState(this.getState());
   },
   render: function() {
+    var content;
+
     if (this.state.loading) {
-      return (<div>loading options</div>);
+      content = <div>loading options</div>;
+    } else {
+      content = <OptionsList options={this.state.options} config={this.state.config} />
     }
 
     return (
-      <OptionsList options={this.state.options} config={this.state.config} />
+      <div>
+        <h2>Dashboard Enahncement Suite <small>v{this.state.version}</small></h2>
+        {content}
+      </div>
     );
   }});
 

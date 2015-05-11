@@ -18,6 +18,8 @@ var BuilderStore = createStore('OptionsStore', {
     this.config = optionsConfig;
     this.loading = true;
     this.options = {};
+    this.version = require('../../../package.json').version;
+    document.title = 'Dashboard Enahncement Suite ' + this.version;
   },
 
   onGetOptionsStart: function(payload) {
@@ -29,6 +31,7 @@ var BuilderStore = createStore('OptionsStore', {
     console.log('getOptions', payload);
     this.options = update(this.options, { $merge: payload });
     this.loading = false;
+    this.version = require('../../../package.json').version;
     this.emitChange();
   },
 
@@ -67,6 +70,10 @@ var BuilderStore = createStore('OptionsStore', {
 
   getConfig: function() {
     return this.config;
+  },
+
+  getVersion: function() {
+    return this.version;
   },
 
   onError: function (error) {

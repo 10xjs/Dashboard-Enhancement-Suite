@@ -19,14 +19,18 @@ module.exports = function(grunt) {
             { test: /\.json$/, loader: 'json-loader'}
           ]
         },
-        devtool: 'source-map',
-        watch: true,
-        keepalive: true
+        devtool: 'source-map'
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-webpack');
-  grunt.registerTask('default', ['webpack']);
+  grunt.registerTask('manifest', 'Create manifest.json file', function() {
+    var manifest = require('./src/manifest');
 
+    grunt.file.write('./extension/manifest.json', JSON.stringify(manifest));
+  });
+
+
+  grunt.loadNpmTasks('grunt-webpack');
+  grunt.registerTask('default', ['manifest','webpack']);
 };
