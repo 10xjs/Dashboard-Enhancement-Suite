@@ -1,12 +1,12 @@
 # Dashboard Enhancement Suite
-Adds features and improvements to the caorda dashbaord
+Adds features and improvements to the caorda dashboard
 
 ## Installation
 Install from the chome web store:  [Dashboard Enhancement Suite](https://chrome.google.com/webstore/detail/dashboard-enhancement-sui/bbheiamdpmdbmimancpaicialgpcpjlj)  
 
 
 ## Options Page
-To visit the options page, click the [![options](http://i.imgur.com/wTt0Ujd.png)](chrome-extension://anfeheemhnddmckpgkcdaokkdbhkdddb/options/index.html) icon in the path bar from while on any dashbaord page.
+To visit the options page, click the [![options](http://i.imgur.com/wTt0Ujd.png)](chrome-extension://anfeheemhnddmckpgkcdaokkdbhkdddb/options/index.html) icon in the path bar from while on any dashboard page.
 
 ### Available Options
  - __Enable improved navigation menu.__  
