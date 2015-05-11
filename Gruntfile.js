@@ -25,9 +25,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('manifest', 'Create manifest.json file', function() {
-    var manifest = require('./src/manifest');
+    var manifestJSON = require('./src/manifest').manifestJSON;
 
-    grunt.file.write('./extension/manifest.json', JSON.stringify(manifest));
+    grunt.file.write('./extension/manifest.json', '/*DON\'T EDIT THIS FILE DIRECTLY*/\n\n' + manifestJSON);
   });
 
 
