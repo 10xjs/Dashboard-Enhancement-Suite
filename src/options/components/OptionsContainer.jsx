@@ -91,7 +91,8 @@ var OptionsContainer = React.createClass({
       loading: optionsStore.isLoading(),
       options: optionsStore.getOptions(),
       config: optionsStore.getConfig(),
-      version: optionsStore.getVersion()
+      extensionVersion: optionsStore.getExtensionVersion(),
+      extensionName: optionsStore.getExtensionName()
     };
   },
 
@@ -113,7 +114,7 @@ var OptionsContainer = React.createClass({
 
     return (
       <div>
-        <h2>Dashboard Enahncement Suite <small>v{this.state.version}</small></h2>
+        <h2>{this.state.extensionName} <small>v{this.state.extensionVersion}</small></h2>
         {content}
       </div>
     );

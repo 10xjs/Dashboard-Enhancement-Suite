@@ -1,3 +1,16 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+dev
+build
+
 node_modules
+
 .DS_Store
 extension.pem

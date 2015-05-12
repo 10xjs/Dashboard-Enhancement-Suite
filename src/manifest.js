@@ -1,9 +1,6 @@
-var packageJSON = require('../package.json');
-
-var manifest = {
+module.exports = {
   name: "Dashboard Enhancement Suite",
-  version: packageJSON.version,
-  // update_url: "https://raw.githubusercontent.com/nealgranger/Dashboard-Enhancement-Suite/master/extension/updates.xml",
+  version: require('../package.json').version,
   manifest_version: 2,
   options_page: "options/index.html",
   page_action: {
@@ -34,11 +31,4 @@ var manifest = {
   web_accessible_resources: [
     "resources/*"
   ]
-};
-
-
-
-module.exports = {
-  manifestJSON: JSON.stringify(manifest),
-  manifest: manifest
 };
