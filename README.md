@@ -2,7 +2,7 @@
 Adds features and improvements to the caorda dashboard
 
 ## Installation
-Install from the chome web store:  [Dashboard Enhancement Suite](https://chrome.google.com/webstore/detail/dashboard-enhancement-sui/bbheiamdpmdbmimancpaicialgpcpjlj)  
+Install from the chrome web store:  [Dashboard Enhancement Suite](https://chrome.google.com/webstore/detail/dashboard-enhancement-sui/bbheiamdpmdbmimancpaicialgpcpjlj)  
 
 
 ### Options Page
