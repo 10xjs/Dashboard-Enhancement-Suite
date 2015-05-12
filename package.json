@@ -1,9 +1,19 @@
 {
   "name": "DES",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Neal Granger <neal@nealg.com>",
   "scripts": {
-    "build": "grunt"
+    "clean": "node_modules/.bin/rimraf build",
+    "clean:dev": "node_modules/.bin/rimraf dev",
+    "copy": "node_modules/.bin/ncp src/extension build/extension",
+    "copy:dev": "node_modules/.bin/ncp src/extension dev/extension",
+    "manifest": "node scripts/manifest",
+    "manifest:dev": "node scripts/manifest.dev.js",
+    "webpack": "node_modules/.bin/webpack src/options/options.js build/extension/options/options.js -p",
+    "webpack:dev": "node_modules/.bin/webpack src/options/options.js dev/extension/options/options.js -dw",
+    "zip": "node scripts/zip",
+    "build": "npm run clean && mkdir build && npm run copy && npm run manifest && npm run webpack && npm run zip",
+    "dev": "npm run clean:dev && mkdir dev && npm run copy:dev && npm run manifest:dev && npm run webpack:dev"
   },
   "dependencies": {
     "find-index": "^0.1.1",
@@ -14,11 +24,12 @@
     "react": "^0.13.2"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-webpack": "^1.0.8",
+    "archiver": "^0.14.3",
     "json-loader": "^0.5.1",
     "jsx-loader": "^0.13.1",
+    "ncp": "^2.0.0",
+    "node-zip": "^1.1.1",
+    "rimraf": "^2.3.3",
     "webpack": "^1.8.10"
   }
 }

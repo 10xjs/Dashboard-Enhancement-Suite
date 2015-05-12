@@ -42,6 +42,17 @@
 
     notificationBadges.toggle(options.notificationBadges);
 
+    // 
+    // add addtional option handlers here
+    // 
+    // ex: 
+    // 
+    // if (options.myOption) {
+    //   enableMyFeature();
+    // } else {
+    //   disableMyFeatrue();
+    // }
+
   };
 
 
