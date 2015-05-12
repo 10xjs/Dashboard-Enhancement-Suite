@@ -1,4 +1,4 @@
-# Dashboard Enhancement Suite
+# Dashboard Enhancement Suite v0.1.5
 Adds features and improvements to the caorda dashboard
 
 ## Installation
