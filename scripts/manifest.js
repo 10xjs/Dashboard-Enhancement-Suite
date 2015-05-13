@@ -9,11 +9,7 @@ function ManifestTransform(manifest, options) {
 }
 inherits(ManifestTransform, Transform);
 
-var success;
-
 ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
-
-  success = true;
 
   var description = chunk.toString();
 
@@ -27,7 +23,3 @@ ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
 };
 
 process.stdin.pipe(new ManifestTransform(manifest)).pipe(process.stdout);
-
-if (!success) {
-  throw new Error('No build name was provided to manifest script.');
-} 
