@@ -1,6 +1,6 @@
 {
   "name": "DES",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Neal Granger <neal@nealg.com>",
   "scripts": {
     "clean": "node_modules/.bin/rimraf build && mkdir build",
