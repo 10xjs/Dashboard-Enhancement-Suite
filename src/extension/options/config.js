@@ -1,12 +1,13 @@
 var optionsConfig = {
   betterNav: {
     type: 'checkbox',
-    label: 'Enable improved navigation menu.',
+    label: 'Improved navigation:',
+    description: 'Disables menu animation and enables predictive menu aim.',
     default: true
   },
   betterNavDebug: {
     type: 'checkbox',
-    label: 'Show menu aim debug margins.',
+    description: 'Show menu aim debug margins.',
     default: false,
     require: function(options) {
       return options.betterNav;
@@ -14,12 +15,14 @@ var optionsConfig = {
   },
   disableNotificationConfirmation: {
     type: 'checkbox',
-    label: 'Disable delete confirmation for individual notifications.',
+    label: 'Disable delete confirmation:',
+    description: 'Disable delete confirmation for individual notifications.',
     default: false
   },
   notificationBadges: {
     type: 'checkbox',
-    label: 'Show additional notification count badges.',
+    label: 'Notification badges:',
+    description: 'Show badges in the header and beside task names with the total number of notifactions.',
     default: false
   }
 };
