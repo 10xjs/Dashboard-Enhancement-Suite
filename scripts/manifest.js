@@ -12,8 +12,6 @@ inherits(ManifestTransform, Transform);
 ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
 
   var description = chunk.toString();
-
-  console.log(description);
   
   manifest.version_name = 'build ' + description;
 
