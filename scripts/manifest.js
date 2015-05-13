@@ -1,9 +1,21 @@
-var fs = require('fs');
-var path = require('path');
+var inherits = require('util').inherits;
+var Transform = require('stream').Transform;
+
 var manifest = require('../src/manifest');
 
-var manifestJSON = JSON.stringify(manifest);
+function ManifestTransform(manifest, options) {
+  Transform.call(this, options);
+  this.manifest = manifest;
+}
+inherits(ManifestTransform, Transform);
 
-console.log(manifestJSON);
+ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
+  
+  manifest.version_name = 'build ' + chunk.toString();
 
-fs.writeFileSync(path.join(__dirname,'../build/extension/manifest.json'), manifestJSON);
+  this.push(JSON.stringify(manifest));
+
+  callback();
+};
+
+process.stdin.pipe(new ManifestTransform(manifest)).pipe(process.stdout);

@@ -18,9 +18,8 @@ var BuilderStore = createStore('OptionsStore', {
     this.config = optionsConfig;
     this.loading = true;
     this.options = {};
-    this.extensionVersion = require('../../manifest').version;
-    this.extensionName = require('../../manifest').name;
-    document.title = this.extensionName + ' ' + this.extensionVersion;
+    this.manifest = chrome.runtime.getManifest();
+    document.title = this.manifest.name + ' ' + this.manifest.version;
   },
 
   onGetOptionsStart: function(payload) {
@@ -69,12 +68,8 @@ var BuilderStore = createStore('OptionsStore', {
     return this.config;
   },
 
-  getExtensionVersion: function() {
-    return this.extensionVersion;
-  },
-
-  getExtensionName: function() {
-    return this.extensionName;
+  getManifest: function() {
+    return this.manifest;
   },
 
   onError: function (error) {

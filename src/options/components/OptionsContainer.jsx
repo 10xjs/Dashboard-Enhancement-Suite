@@ -91,8 +91,7 @@ var OptionsContainer = React.createClass({
       loading: optionsStore.isLoading(),
       options: optionsStore.getOptions(),
       config: optionsStore.getConfig(),
-      extensionVersion: optionsStore.getExtensionVersion(),
-      extensionName: optionsStore.getExtensionName()
+      manifest: optionsStore.getManifest()
     };
   },
 
@@ -114,8 +113,9 @@ var OptionsContainer = React.createClass({
 
     return (
       <div>
-        <h2 style={{ whiteSpace: 'nowrap' }}>{this.state.extensionName} <small>v{this.state.extensionVersion}</small></h2>
+        <h2 style={{ whiteSpace: 'nowrap' }}>{this.state.manifest.name} <small>v{this.state.manifest.version}</small></h2>
         {content}
+        <p style={{ color: '#888', float: 'left'}}>{this.state.manifest.version_name}</p>
       </div>
     );
   }});
