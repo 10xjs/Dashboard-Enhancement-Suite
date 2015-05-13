@@ -9,9 +9,17 @@ function ManifestTransform(manifest, options) {
 }
 inherits(ManifestTransform, Transform);
 
+var success;
+
 ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
+
+  success = true;
+
+  var description = chunk.toString();
+
+  console.log(description);
   
-  manifest.version_name = 'build ' + chunk.toString();
+  manifest.version_name = 'build ' + description;
 
   this.push(JSON.stringify(manifest));
 
@@ -19,3 +27,7 @@ ManifestTransform.prototype._transform = function (chunk, encoding, callback) {
 };
 
 process.stdin.pipe(new ManifestTransform(manifest)).pipe(process.stdout);
+
+if (!success) {
+  throw new Error('No build name was provided to manifest script.');
+} 

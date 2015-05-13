@@ -1,7 +1,6 @@
 exports = module.exports = {
   name: "Dashboard Enhancement Suite",
   version: require('../package.json').version,
-  version_name: require('../package.json').version,
   manifest_version: 2,
   options_page: "options.html",
   page_action: {
