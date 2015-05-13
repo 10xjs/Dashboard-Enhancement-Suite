@@ -32,7 +32,6 @@
     "rimraf": "^2.3.3",
     "webpack": "^1.8.10"
   },
-  ,
   "repository": {
     "type": "git",
     "url": "https://github.com/nealgranger/Dashboard-Enhancement-Suite"
