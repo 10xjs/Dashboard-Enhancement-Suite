@@ -19,7 +19,7 @@ var CheckBox = React.createClass({
   },
   render: function() {
     return (
-      <label>
+      <label style={{ whiteSpace: 'nowrap' }}>
         <input name={this.props.name} type="checkbox" checked={this.props.checked} onChange={this.props.onChange} />
         {this.props.label}
       </label>
@@ -114,7 +114,7 @@ var OptionsContainer = React.createClass({
 
     return (
       <div>
-        <h2>{this.state.extensionName} <small>v{this.state.extensionVersion}</small></h2>
+        <h2 style={{ whiteSpace: 'nowrap' }}>{this.state.extensionName} <small>v{this.state.extensionVersion}</small></h2>
         {content}
       </div>
     );

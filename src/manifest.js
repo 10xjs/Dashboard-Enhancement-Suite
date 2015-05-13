@@ -2,9 +2,10 @@ module.exports = {
   name: "Dashboard Enhancement Suite",
   version: require('../package.json').version,
   manifest_version: 2,
-  options_page: "options/index.html",
+  options_page: "options.html",
   page_action: {
-    default_title : "on dashbaord"
+    default_title : "on dashbaord",
+    default_popup: "popup.html"
   },
   background: {
     scripts: ["background.js"]
