@@ -31,6 +31,14 @@ var optionsConfig = {
     description: 'Highlight the current row under the mouse.',
     default: false
   },
+
+  // flexible full width
+  fullWidth: {
+    type: 'checkbox',
+    label: 'Full Width',
+    description: 'Enable flexible full-width layout',
+    default: false
+  },
   taskMenuPosition: {
     type: 'select',
     label: 'Task menu position:',
@@ -41,6 +49,9 @@ var optionsConfig = {
         { label: 'Left', value: 'left'},
         { label: 'Automatic', value: 'auto'}
       ]
+    },
+    require: function(options) {
+      return !options.fullWidth;
     }
   }
 };

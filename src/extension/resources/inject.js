@@ -47,6 +47,12 @@
     } else {
       removeStylesheet(getUrl('resources/highlightTableRows.css'));
     }
+
+    if (options.fullWidth) {
+      injectStylesheet(getUrl('resources/fullWidth.css'));
+    } else {
+      removeStylesheet(getUrl('resources/fullWidth.css'));
+    }
     
     switch (options.taskMenuPosition) {
       case 'left':

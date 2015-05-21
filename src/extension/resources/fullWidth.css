@@ -6,7 +6,40 @@ body {
 #divContainer {
   width: 100%;
   min-width: 960px;
+  max-width: 1200px;
+  margin: auto;
 }
+
+/*===============================
+=            Buttons            =
+===============================*/
+
+.clsButton.clsSmall.clsBlue {
+  padding: 0 10px;
+}
+
+/*==========================================
+=            Task Menu Position            =
+==========================================*/
+
+@media screen and (max-width: 1580px) {
+  a.clsButton.clsSmall.clsBlue.clsArrow {
+    transform: scaleX(-1);
+    overflow: hidden;
+  }
+
+  a.clsButton.clsSmall.clsBlue.clsArrow::before {
+    content: 'TASK';
+    display: block;
+    transform: scaleX(-1);
+  }
+
+  .clsNestedListMenu.clsTask li ul,
+  .clsNestedListMenu.clsTasks li ul {
+    left: auto; right: 59px;
+  }
+}
+
 
 /*========================================
 =            Dashboard header            =
@@ -57,3 +90,40 @@ body {
   margin-left: 0;
   margin-right: 0;
 }
+
+
+/*======================================
+=            Assigned Tasks            =
+======================================*/
+
+#ctl00_plcContentPlaceHolder_grdSelectAssigned {
+  table-layout: fixed;
+  width: calc(100% - 20px);
+}
+
+/* # */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(1) { width: 25px; }
+/* Created */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(2) { width: 75px; }
+/* Due */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(3) { width: 75px; }
+/* Client */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(4) { width: auto; }
+/* Title */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(5) { width: auto; }
+/* Owner */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(6) { width: 55px; }
+/* details */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(7) { width: 20px; }
+/* Queue */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(8) { width: 45px; }
+/* Urgency */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(9) { width: 50px; }
+/* Status */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(10) { width: 40px; }
+/* timer */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(11) { width: 50px; }
+/* edit */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(12) { width: 60px; }
+/* actions */
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(13) { width: 60px; }
