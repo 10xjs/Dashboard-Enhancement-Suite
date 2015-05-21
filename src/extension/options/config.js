@@ -24,5 +24,11 @@ var optionsConfig = {
     label: 'Notification badges:',
     description: 'Show badges in the header and beside task names with the total number of notifactions.',
     default: false
+  },
+  highlightTableRows: {
+    type: 'checkbox',
+    label: 'Highlight Rows:',
+    description: 'Highlight the current row under the mouse.',
+    default: false
   }
 };
