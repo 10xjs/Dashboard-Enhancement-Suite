@@ -6,38 +6,34 @@ body {
 #divContainer {
   width: 100%;
   min-width: 960px;
-  max-width: 1200px;
-  margin: auto;
 }
 
 /*===============================
 =            Buttons            =
 ===============================*/
 
-.clsButton.clsSmall.clsBlue {
+/*.clsButton.clsSmall.clsBlue {
   padding: 0 10px;
-}
+}*/
 
 /*==========================================
 =            Task Menu Position            =
 ==========================================*/
 
-@media screen and (max-width: 1580px) {
-  a.clsButton.clsSmall.clsBlue.clsArrow {
-    transform: scaleX(-1);
-    overflow: hidden;
-  }
+a.clsButton.clsSmall.clsBlue.clsArrow {
+  transform: scaleX(-1);
+  overflow: hidden;
+}
 
-  a.clsButton.clsSmall.clsBlue.clsArrow::before {
-    content: 'TASK';
-    display: block;
-    transform: scaleX(-1);
-  }
+a.clsButton.clsSmall.clsBlue.clsArrow::before {
+  content: 'TASK';
+  display: block;
+  transform: scaleX(-1);
+}
 
-  .clsNestedListMenu.clsTask li ul,
-  .clsNestedListMenu.clsTasks li ul {
-    left: auto; right: 59px;
-  }
+.clsNestedListMenu.clsTask li ul,
+.clsNestedListMenu.clsTasks li ul {
+  left: auto; right: 59px;
 }
 
 
@@ -79,7 +75,7 @@ body {
 }
 
 .clsContainer {
-  width: calc(100% - 2px);
+  width: calc(100% - 2px) !important;
   margin-left: 0;
   margin-right: 0;
   box-sizing: border-box;
@@ -91,6 +87,13 @@ body {
   margin-right: 0;
 }
 
+.clsTableView {
+  width: calc(100% - 20px) !important;
+}
+
+.clsOverflow {
+  width: auto !important;
+}
 
 /*======================================
 =            Assigned Tasks            =
@@ -98,32 +101,32 @@ body {
 
 #ctl00_plcContentPlaceHolder_grdSelectAssigned {
   table-layout: fixed;
-  width: calc(100% - 20px);
+  width: 100% !important;
 }
 
 /* # */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(1) { width: 25px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(1) { width: 25px !important; }
 /* Created */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(2) { width: 75px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(2) { width: 75px !important; }
 /* Due */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(3) { width: 75px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(3) { width: 75px !important; }
 /* Client */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(4) { width: auto; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(4) { width: auto !important; }
 /* Title */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(5) { width: auto; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(5) { width: auto !important; }
 /* Owner */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(6) { width: 55px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(6) { width: 55px !important; }
 /* details */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(7) { width: 20px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(7) { width: 20px !important; }
 /* Queue */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(8) { width: 45px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(8) { width: 45px !important; }
 /* Urgency */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(9) { width: 50px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(9) { width: 50px !important; }
 /* Status */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(10) { width: 40px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(10) { width: 40px !important; }
 /* timer */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(11) { width: 50px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(11) { width: 50px !important; }
 /* edit */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(12) { width: 60px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(12) { width: 60px !important; }
 /* actions */
-#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(13) { width: 60px; }
+#ctl00_plcContentPlaceHolder_grdSelectAssigned th:nth-child(13) { width: 60px !important; }

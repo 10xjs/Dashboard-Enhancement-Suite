@@ -325,14 +325,14 @@
     if (!this._isActive) {
       this._isActive = true;
       injectStylesheet(getUrl('resources/fullWidth.css'));
-      var nodes = document.querySelectorAll('[style]');
-      var i = nodes.length;
-      while (i--) {
-        var node = nodes[i];
-        if (node.style.width) {
-          node.setAttribute('data-inline-width',node.style.removeProperty('width'));
-        }
-      }
+      // var nodes = document.querySelectorAll('[style]');
+      // var i = nodes.length;
+      // while (i--) {
+      //   var node = nodes[i];
+      //   if (node.style.width) {
+      //     node.setAttribute('data-inline-width',node.style.removeProperty('width'));
+      //   }
+      // }
     }
   };
 
@@ -340,13 +340,13 @@
     if (this._isActive) {
       this._isActive = false;
       removeStylesheet(getUrl('resources/fullWidth.css'));
-      var nodes = document.querySelectorAll('[data-inline-width]');
-      var i = nodes.length;
-      while (i--) {
-        var node = nodes[i];
-        node.style.width = node.getAttribute('data-inline-width');
-        node.removeAttribute('data-inline-width');
-      }
+      // var nodes = document.querySelectorAll('[data-inline-width]');
+      // var i = nodes.length;
+      // while (i--) {
+      //   var node = nodes[i];
+      //   node.style.width = node.getAttribute('data-inline-width');
+      //   node.removeAttribute('data-inline-width');
+      // }
     }
   };
 
