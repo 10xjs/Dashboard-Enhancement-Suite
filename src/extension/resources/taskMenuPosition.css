@@ -1,0 +1,33 @@
+.task-menu-left a.clsButton.clsSmall.clsBlue.clsArrow {
+  transform: scaleX(-1);
+  overflow: hidden;
+}
+
+.task-menu-left a.clsButton.clsSmall.clsBlue.clsArrow::before {
+  content: 'TASK';
+  display: block;
+  transform: scaleX(-1);
+}
+
+.task-menu-left .clsNestedListMenu.clsTask li ul,
+.task-menu-left .clsNestedListMenu.clsTasks li ul {
+  left: auto; right: 59px;
+}
+
+@media screen and (max-width: 1434px) {
+  .task-menu-auto a.clsButton.clsSmall.clsBlue.clsArrow {
+    transform: scaleX(-1);
+    overflow: hidden;
+  }
+
+  .task-menu-auto a.clsButton.clsSmall.clsBlue.clsArrow::before {
+    content: 'TASK';
+    display: block;
+    transform: scaleX(-1);
+  }
+
+  .task-menu-auto .clsNestedListMenu.clsTask li ul,
+  .task-menu-auto .clsNestedListMenu.clsTasks li ul {
+    left: auto; right: 59px;
+  }
+}
