@@ -42,6 +42,12 @@
 
     notificationBadges.toggle(options.notificationBadges);
 
+    if (options.highlightTableRows) {
+      injectStylesheet(getUrl('resources/highlightTableRows.css'));
+    } else {
+      removeStylesheet(getUrl('resources/highlightTableRows.css'));
+    }
+    
     // 
     // add addtional option handlers here
     // 
