@@ -42,6 +42,27 @@
 
     notificationBadges.toggle(options.notificationBadges);
 
+
+
+    switch (options.taskMenuPosition) {
+      case 'left':
+        document.documentElement.classList.add('task-menu-left');
+        document.documentElement.classList.remove('task-menu-auto');
+        injectStylesheet(getUrl('resources/taskMenuPosition.css'));
+        break;
+      case 'auto':
+        document.documentElement.classList.add('task-menu-auto');
+        document.documentElement.classList.remove('task-menu-left');
+        injectStylesheet(getUrl('resources/taskMenuPosition.css'));
+        break;
+      default:
+        document.documentElement.classList.remove('task-menu-left');
+        document.documentElement.classList.remove('task-menu-auto');
+        removeStylesheet(getUrl('resources/taskMenuPosition.css'));
+    }
+
+
+
     // 
     // add addtional option handlers here
     // 
