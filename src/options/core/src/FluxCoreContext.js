@@ -38,7 +38,6 @@ exports.prototype.dispatch = function(eventName, payload) {
       if (self._storeInstances[storeName]) {
         return;
       }
-      console.log('waking up ' + storeName);
       self.getStore(storeName);
     }
   });

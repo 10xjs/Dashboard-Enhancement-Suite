@@ -39,8 +39,6 @@ exports.prototype.plug = function(plugin) {
 exports.prototype.registerStore = function(StoreConstructor) {
   var storeName = StoreConstructor.storeName;
 
-  console.log('registerStore', StoreConstructor.prototype);
-
   if (! storeName) {
     console.warn('Cannot register store without name');
   }
@@ -77,7 +75,6 @@ exports.prototype.registerAction = function(actionName, action) {
 
 exports.prototype.registerActions = function(actions) {
   var self = this;
-  console.log('register actions', actions);
   Object.keys(actions).forEach(function(actionName){
     self.registerAction(actionName, actions[actionName])
   });

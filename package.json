@@ -7,7 +7,7 @@
     "clean:dev": "node_modules/.bin/rimraf dev && mkdir dev",
     "copy": "node_modules/.bin/ncp src/extension build/extension",
     "copy:dev": "node_modules/.bin/ncp src/extension dev/extension",
-    "watch": "node_modules/.bin/chokidar src/extension -c \"npm run copy:dev\" & node_modules/.bin/chokidar src/manifest.js -c \"npm run manifest:dev\"",
+    "watch": "node_modules/.bin/chokidar src/extension/** -c \"npm run copy:dev\" & node_modules/.bin/chokidar src/manifest.js -c \"npm run manifest:dev\"",
     "link": "node scripts/link",
     "manifest": "git describe | node scripts/manifest > build/extension/manifest.json",
     "manifest:dev": "git describe | node scripts/manifest > dev/extension/manifest.json",

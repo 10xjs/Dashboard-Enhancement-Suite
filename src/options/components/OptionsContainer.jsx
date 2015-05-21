@@ -3,29 +3,10 @@ var LinkedStateMixin = React.addons.LinkedStateMixin;
 
 var FluxCoreMixin = require('../core').mixin;
 
-// components
+var OptionRow = require('./OptionRow.jsx');
+var CheckboxField = require('./CheckboxField.jsx');
+var SelectField = require('./SelectField.jsx');
 
-// var UIButton = require('./UIButton.jsx');
-// var Editor = require('./Editor.jsx');
-
-
-
-var CheckBox = React.createClass({
-  propTypes: {
-    checked: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    label: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired
-  },
-  render: function() {
-    return (
-      <label style={{ whiteSpace: 'nowrap' }}>
-        <input name={this.props.name} type="checkbox" checked={this.props.checked} onChange={this.props.onChange} />
-        {this.props.label}
-      </label>
-    );
-  }
-});
 
 var OptionsList = React.createClass({
   mixins: [FluxCoreMixin],
@@ -47,9 +28,9 @@ var OptionsList = React.createClass({
   render: function() {
     var self = this;
 
-    var fields = Object.keys(this.props.options).map(function(key){
-      var config = self.props.config[key];
-      var value = self.props.options[key];
+    var fields = Object.keys(this.props.options).map(function(option){
+      var config = self.props.config[option];
+      var value = self.props.options[option];
       var content;
 
       // check for and run the require function by passing the current state
@@ -60,16 +41,27 @@ var OptionsList = React.createClass({
 
       switch(config.type) {
         case 'checkbox':
-          content = <CheckBox checked={value} name={key} label={config.label} onChange={self.handleChange} />
+          return (
+            <OptionRow key={option} label={config.label}>
+              <CheckboxField checked={value} name={option} description={config.description} onChange={self.handleChange} />
+            </OptionRow>
+          );
+          break;
+        case 'select':
+          return (
+            <OptionRow key={option} label={config.label}>
+              <SelectField value={value} name={option} onChange={self.handleChange} description={config.description} options={config.getOptions(self.props.options)} />
+            </OptionRow>
+          );
           break;
         default:
-          content = 'this option type is not yet supported';
+          return (
+            <OptionRow key={option} label={config.label}>
+              option type: {config.type} is not yet supported
+            </OptionRow>
+          );
           break;
       }
-
-      return (
-        <div key={key}>{content}</div>
-      );
     });
 
     return (
