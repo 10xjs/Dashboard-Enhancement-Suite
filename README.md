@@ -9,12 +9,14 @@ Install from the chrome web store:  [Dashboard Enhancement Suite](https://chrome
 To visit the options page, click the [![options](http://i.imgur.com/wTt0Ujd.png)](chrome-extension://anfeheemhnddmckpgkcdaokkdbhkdddb/options/index.html) icon in the path bar from while on any dashboard page.
 
 #### Available Options
- - __Enable improved navigation menu.__  
- Disable navigation menu animation and enable "[menu aim](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown)"
- - __Disable delete confirmation for individual notifications.__  
- Individual notifications can be deleted immediately without a dialog appearing
- - __Show additional notification count badges.__  
- Show badges beside task names with the total number of read and unread messages.
+ - __Improved navigation.__  
+ Disables menu animation and enables predictive [menu aim](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown).
+ - __Instant notification delete.__  
+ Individual notifications can be deleted immediately without a dialog appearing.
+ - __Highlight Rows.__  
+ Highlight the current row under the mouse.
+ - __Task menu position.__  
+ Reposition the task popup menu to prevent it from being clipped by the browser window.
 
 ## Contributing
 Build the local development version with `npm run dev` and load the unpacked extension from `dev/extension` 
