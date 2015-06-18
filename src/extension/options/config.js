@@ -1,30 +1,30 @@
 var optionsConfig = {
   betterNav: {
     type: 'checkbox',
-    label: 'Improved navigation:',
+    label: 'Better nav menu:',
     description: 'Disables menu animation and enables predictive menu aim.',
     default: true
   },
-  betterNavDebug: {
-    type: 'checkbox',
-    description: 'Show menu aim debug margins.',
-    default: false,
-    require: function(options) {
-      return options.betterNav;
-    }
-  },
+  // betterNavDebug: {
+  //   type: 'checkbox',
+  //   description: 'Show menu aim debug margins.',
+  //   default: false,
+  //   require: function(options) {
+  //     return options.betterNav;
+  //   }
+  // },
   disableNotificationConfirmation: {
     type: 'checkbox',
-    label: 'Disable delete confirmation:',
-    description: 'Disable delete confirmation for individual notifications.',
+    label: 'Instant notification delete:',
+    description: 'Prevents delete confirmation dialog for individual notifications.',
     default: false
   },
-  notificationBadges: {
-    type: 'checkbox',
-    label: 'Notification badges:',
-    description: 'Show badges in the header and beside task names with the total number of notifactions.',
-    default: false
-  },
+  // notificationBadges: {
+  //   type: 'checkbox',
+  //   label: 'Notification badges:',
+  //   description: 'Show badges in the header and beside task names with the total number of notifactions.',
+  //   default: false
+  // },
   highlightTableRows: {
     type: 'checkbox',
     label: 'Highlight Rows:',
