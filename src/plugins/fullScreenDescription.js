@@ -2,7 +2,7 @@ var fullscreenDescription = {
   config: {
     name: 'fullscreenDescription',
     type: 'checkbox',
-    label: 'Fullscreen Task Description',
+    label: 'Fullscreen Task Description:',
     description: 'Enables the ability to view the task description in fullscreen.'
   },
 
