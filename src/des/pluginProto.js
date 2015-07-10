@@ -13,6 +13,11 @@ var pluginProto = {
   deactivate: noop,
   initialize: noop,
 
+  _initialize: function(options) {
+    this._extensionId = options.extensionID;
+    this.initialize();
+  },
+
   _activate: function(option) {
     if (this._isActive) {
       return;
@@ -78,7 +83,7 @@ var pluginProto = {
       file = file.substring(1);
     }
 
-    return 'chrome-extension://' + extensionId + '/' + file;
+    return 'chrome-extension://' + this._extensionId + '/' + file;
   }
 
 }
