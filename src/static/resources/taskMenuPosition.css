@@ -1,9 +1,9 @@
-.task-menu-left a.clsButton.clsSmall.clsBlue.clsArrow {
+.task-menu-left .clsTask a.clsButton.clsSmall.clsBlue.clsArrow {
   transform: scaleX(-1);
   overflow: hidden;
 }
 
-.task-menu-left a.clsButton.clsSmall.clsBlue.clsArrow::before {
+.task-menu-left .clsTask a.clsButton.clsSmall.clsBlue.clsArrow::before {
   content: 'TASK';
   display: block;
   transform: scaleX(-1);
@@ -15,12 +15,12 @@
 }
 
 @media screen and (max-width: 1434px) {
-  .task-menu-auto a.clsButton.clsSmall.clsBlue.clsArrow {
+  .task-menu-auto .clsTask a.clsButton.clsSmall.clsBlue.clsArrow {
     transform: scaleX(-1);
     overflow: hidden;
   }
 
-  .task-menu-auto a.clsButton.clsSmall.clsBlue.clsArrow::before {
+  .task-menu-auto .clsTask a.clsButton.clsSmall.clsBlue.clsArrow::before {
     content: 'TASK';
     display: block;
     transform: scaleX(-1);

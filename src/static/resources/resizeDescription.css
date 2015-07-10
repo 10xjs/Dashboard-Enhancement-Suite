@@ -1,0 +1,11 @@
+#ctl00_plcContentPlaceHolder_radEditorDescription {
+  height: auto !important;
+}
+
+#ctl00_plcContentPlaceHolder_radEditorDescriptionWrapper {
+  height: auto !important;
+}
+
+#ctl00_plcContentPlaceHolder_radEditorDescription_contentIframe {
+  resize: vertical;
+}
