@@ -21,37 +21,48 @@ des.prototype.getConfig = function() {
   return config;
 };
 
-des.prototype.run = function(options) {
-  var extensionID = options.extensionID || '';
-  var hasFocus = true;
+des.prototype.run = function() {
+  //var hasFocus = true;
+
+  // listen for messages
+  window.addEventListener('message', this.handleMessage.bind(this));
 
   // notifty content script that the extension is loaded
-  window.postMessage({ name:'extensionLoaded' },'http://apps.caorda.com');
-
-  // listen for options data
-  window.addEventListener('message', this.handleMessage);
+  window.postMessage({ name: 'getExtensionID' }, 'http://apps.caorda.com');
 
   // page visibility
-  document.addEventListener("visibilitychange", function(event){
-    hasFocus = (document.visibilityState !== 'hidden');
-  });
-
-
-  this._plugins.forEach(function(plugin){
-    plugin.initialize();
-  });
+  // document.addEventListener("visibilitychange", function(event){
+  //   hasFocus = (document.visibilityState !== 'hidden');
+  // });
 
 };
 
-des.prototype.handleMesage = function(event){
-  if ('options' === event.data.name) {
-    this.handleOptions(event.data.options);
-  }
+des.prototype.handleMessage = function(event){
+
+  var handlers = {
+    extensionID: this.handleExtensionID.bind(this),
+    options: this.handleOptions.bind(this),
+    default: function(){}
+  };
+
+  return (handlers[event.data.name] || handlers.default)(event.data);
 };
 
-des.prototype.handleOptions = function(options) {
+des.prototype.handleExtensionID = function(data) {
+
   this._plugins.forEach(function(plugin){
-    plugin.toggle(options[plugin.config.name]);
+    var options = {
+      extensionID: data.extensionID
+    };
+    plugin._initialize(options);
+  });
+
+  window.postMessage({ name: 'getOptions' }, 'http://apps.caorda.com');
+};
+
+des.prototype.handleOptions = function(data) {
+  this._plugins.forEach(function(plugin){
+    plugin.toggle(data.options[plugin.config.name]);
   });
 };
 

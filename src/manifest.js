@@ -30,6 +30,7 @@ exports = module.exports = {
     }
   ],
   web_accessible_resources: [
-    "resources/*"
+    "resources/*",
+    "inject.js"
   ]
 };
