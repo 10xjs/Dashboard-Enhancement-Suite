@@ -1,0 +1,13 @@
+.divTaskHistory {
+  display: block !important;
+}
+#ctl00_plcContentPlaceHolder_lnkTaskHistory {
+  display: none !important;
+}
+.clsGenericIcon.clsToggleNotes {
+  display: none !important;
+}
+
+tr[id$='_rowNotes'] {
+  display: table-row !important;
+}

@@ -9,5 +9,6 @@ extension.plug(require('./plugins/highlightTableRows.js'));
 extension.plug(require('./plugins/taskMenuPosition.js'));
 extension.plug(require('./plugins/resizeDescription.js'));
 extension.plug(require('./plugins/fullScreenDescription.js'));
+extension.plug(require('./plugins/showNotes.js'));
 
 module.exports = extension;
