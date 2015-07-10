@@ -1,8 +1,6 @@
 ;(function(){
   var domain = 'http://apps.caorda.com';
 
-  chrome.storage.sync.set({ nealIsAwesome: true });
-
   var scriptTag = document.createElement('script');
   scriptTag.src = chrome.extension.getURL('/resources/inject.js');
   scriptTag.setAttribute('data-extension-id', chrome.runtime.id);
@@ -17,11 +15,12 @@
 
 
   window.addEventListener('message', function(event){
-    switch (event.data.name) {
-      case 'extensionLoaded':
-        getOptions()
-        break;
-    }
+    var handlers = {
+      extensionLoaded: getOptions,
+      default: function(){}
+    };
+
+    return (handlers[event.data.name] || handlers.default)(event.data);
   })
 
   chrome.storage.onChanged.addListener(getOptions);

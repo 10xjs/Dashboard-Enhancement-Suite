@@ -4,18 +4,11 @@
   "author": "Neal Granger <neal@nealg.com>",
   "scripts": {
     "clean": "node_modules/.bin/rimraf build && mkdir build",
-    "clean:dev": "node_modules/.bin/rimraf dev && mkdir dev",
-    "copy": "node_modules/.bin/ncp src/extension build/extension",
-    "copy:dev": "node_modules/.bin/ncp src/extension dev/extension",
-    "watch": "node_modules/.bin/chokidar src/extension/** -c \"npm run copy:dev\" & node_modules/.bin/chokidar src/manifest.js -c \"npm run manifest:dev\"",
-    "link": "node scripts/link",
-    "manifest": "git describe | node scripts/manifest > build/extension/manifest.json",
-    "manifest:dev": "git describe | node scripts/manifest > dev/extension/manifest.json",
-    "webpack": "node_modules/.bin/webpack src/options/options.js build/extension/options/options.js -p",
-    "webpack:dev": "node_modules/.bin/webpack src/options/options.js dev/extension/options/options.js -dw",
+    "copy": "node_modules/.bin/ncp src/static build/",
+    "manifest": "git describe | node scripts/manifest > build/manifest.json",
+    "webpack": "node_modules/.bin/webpack -dw",
     "zip": "node scripts/zip",
-    "build": "npm run clean && npm run copy && npm run manifest && npm run webpack && npm run zip",
-    "dev": "npm run clean:dev && npm run copy:dev && npm run manifest:dev && npm run webpack:dev & npm run watch"
+    "build": "npm run clean && npm run copy && npm run manifest && npm run webpack"
   },
   "dependencies": {
     "find-index": "^0.1.1",

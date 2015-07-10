@@ -3,7 +3,7 @@ var path = require('path');
 
 var archiver = require('archiver');
 
-var outputDir = path.join(__dirname,'../build/release');
+var outputDir = path.join(__dirname,'../');
 
 if (!fs.existsSync(outputDir)){
   fs.mkdirSync(outputDir);
@@ -24,7 +24,7 @@ archive.on('error', function(err) {
 archive.pipe(output);
 
 archive.bulk([
-  { expand: true, cwd: path.join(__dirname,'../build/extension'), src: ['**/*.*'] }
+  { expand: true, cwd: path.join(__dirname,'../build'), src: ['**/*.*'] }
 ]);
 
 archive.finalize();

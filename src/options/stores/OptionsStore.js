@@ -1,6 +1,8 @@
 var update = require('react/addons').addons.update;
 var findIndex = require('find-index');
 
+var extension = require('../../extension.js');
+
 
 var createStore = require('../core').createStore;
 
@@ -15,7 +17,7 @@ var BuilderStore = createStore('OptionsStore', {
   },
 
   initialize: function() {
-    this.config = optionsConfig;
+    this.config = extension.getConfig();
     this.loading = true;
     this.options = {};
     this.manifest = chrome.runtime.getManifest();
