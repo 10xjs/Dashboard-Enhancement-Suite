@@ -7,10 +7,10 @@ var betterNav = {
     default: true
   },
   activate: function() { 
-    this.injectStylesheet(this.getUrl('resources/betterNav.css'));
+    this.style = require('./betterNav.css');
   },
   deactivate: function() {
-    this.removeStylesheet(this.getUrl('resources/betterNav.css'));
+    this.style.unload();
   }
 }
 

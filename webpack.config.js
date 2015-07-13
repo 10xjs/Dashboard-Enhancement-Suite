@@ -1,16 +1,21 @@
 module.exports = {
   entry: {
     inject: './src/inject.js',
-    options: './src/options/options.js'
+    options: './src/options/options.js',
+    background: './src/background.js',
+    content: './src/content.js'
   },
   output: {
     path: 'build',
     filename: '[name].js'
   },
   resolve: { extensions: ['', '.js', '.jsx'] },
-  module: { loaders: [
-    { test: /\.css$/, loader: 'style!css' },
-    { test: /\.jsx$/, loader: 'jsx-loader' },
-    { test: /\.json$/, loader: 'json-loader'}
-  ] }
+  module: { 
+    loaders: [
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.jsx$/, loader: 'jsx-loader' },
+      { test: /\.json$/, loader: 'json-loader'},
+      { test: /\.(png|woff|woff2|eot|ttf|svg)(\?.*?)?$/, loader: 'url-loader?limit=100000' }
+    ] 
+  }
 }

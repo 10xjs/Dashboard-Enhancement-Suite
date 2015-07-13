@@ -16,7 +16,9 @@ exports = module.exports = {
   permissions: [
     "*://apps.caorda.com/dashboard*",
     "storage",
-    "declarativeContent"
+    "declarativeContent",
+    "webRequest",
+    "webRequestBlocking"
   ],
   content_scripts: [
     {
