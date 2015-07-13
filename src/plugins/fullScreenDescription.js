@@ -7,7 +7,7 @@ var fullscreenDescription = {
   },
 
   activate: function() {
-    this.injectStylesheet(this.getUrl('resources/fullscreenDescription.css'));
+    this.style = require('./fullscreenDescription.css');
 
     var lastItem = document.querySelector('.reToolLastItem');
 
@@ -38,7 +38,7 @@ var fullscreenDescription = {
 
   deactivate: function() {
 
-    this.removeStylesheet(this.getUrl('resources/fullscreenDescription.css'));
+    this.style.unload();
 
     if(this.fullscreenButton) {
       this.fullscreenButton.removeEventListener('click', this);

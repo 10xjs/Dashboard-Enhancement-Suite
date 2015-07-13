@@ -1,0 +1,11 @@
+#divTaskFiles {
+  display: block !important;
+}
+
+#ctl00_plcContentPlaceHolder_lnkTaskFiles {
+  display: none !important;
+}
+
+#lightcase-nav a {
+  text-decoration: none;
+}

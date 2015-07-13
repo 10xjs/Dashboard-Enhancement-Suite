@@ -15,11 +15,11 @@ var taskMenuPosition = {
   activate: function(option) { 
     this.position = option;
     document.documentElement.classList.add('task-menu-' + this.position);
-    this.injectStylesheet(this.getUrl('resources/taskMenuPosition.css'));
+    this.style = require('./taskMenuPosition.css');
   },
   deactivate: function(option) {
     document.documentElement.classList.remove('task-menu-' + this.position);
-    this.removeStylesheet(this.getUrl('resources/taskMenuPosition.css'));
+    this.style.unload();
   },
   toggle: function(option) {
     if (option === 'right') {

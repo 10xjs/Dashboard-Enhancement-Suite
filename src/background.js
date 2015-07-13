@@ -22,3 +22,20 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   console.log(arguments);
   // chrome.runtime.openOptionsPage();
 });
+
+
+chrome.webRequest.onHeadersReceived.addListener(function(request){
+
+  if (request.url.match(/\?view$/)) {
+    for( var i = 0, len = request.responseHeaders.length; i < len; i++) {
+      console.log(request.responseHeaders[i].name.toLowerCase());
+      if (request.responseHeaders[i].name.toLowerCase() == 'content-disposition') {
+        request.responseHeaders.splice(i, 1);
+        break;
+      }
+    } 
+  }
+
+  return { responseHeaders: request.responseHeaders };
+
+},{urls: ['*://apps.caorda.com/dashboard/files/*']}, ["blocking", "responseHeaders"]);

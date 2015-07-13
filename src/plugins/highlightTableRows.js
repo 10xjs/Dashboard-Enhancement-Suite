@@ -7,10 +7,10 @@ var highlightTableRows = {
     default: false
   },
   activate: function() { 
-    this.injectStylesheet(this.getUrl('resources/highlightTableRows.css'));
+    this.style = require('./highlightTableRows.css');
   },
   deactivate: function() {
-    this.removeStylesheet(this.getUrl('resources/highlightTableRows.css'));
+    this.style.unload();
   }
 }
 

@@ -6,10 +6,10 @@ var resizeDescription = {
     description: 'Allows vertical resizing the task description editor.'
   },
   activate: function() { 
-    this.injectStylesheet(this.getUrl('resources/resizeDescription.css'));
+    this.style = require('./resizeDescription.css');
   },
   deactivate: function() {
-    this.removeStylesheet(this.getUrl('resources/resizeDescription.css'));
+    this.style.unload();
   }
 }
 
