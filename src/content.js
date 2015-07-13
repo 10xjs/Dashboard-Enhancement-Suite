@@ -26,5 +26,7 @@
 
     return (handlers[event.data.name] || handlers.default)(event.data);
   })
+  
+  chrome.storage.onChanged.addListener(getOptions);
 })();
 
