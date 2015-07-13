@@ -1,0 +1,11 @@
+#ctl00_plcContentPlaceHolder_radAjaxPanelNotifications {
+  position: relative;
+}
+
+#ctl00_plcContentPlaceHolder_radAjaxPanelNotifications:before {
+  content: 'instant delete is on';
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 5px;
+}
