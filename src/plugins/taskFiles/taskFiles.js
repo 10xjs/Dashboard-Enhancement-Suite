@@ -16,7 +16,7 @@ var taskFiles = {
     }
 
     var lightcase = require('lightcase');
-    var lightcaseStyle = require('../../node_modules/lightcase/css/lightcase.css').use();
+    var lightcaseStyle = require('../../../node_modules/lightcase/css/lightcase.css').use();
 
     jQuery('#ctl00_plcContentPlaceHolder_grdTaskFiles a[id$=_lnkView]')
     .attr('target','_blank')
