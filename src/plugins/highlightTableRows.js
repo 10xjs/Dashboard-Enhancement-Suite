@@ -7,10 +7,11 @@ var highlightTableRows = {
     default: false
   },
   activate: function() { 
-    this.style = require('./highlightTableRows.css');
+    this.style = this.style || require('./highlightTableRows.css');
+    this.style.use();
   },
   deactivate: function() {
-    this.style.unload();
+    this.style.unuse();
   }
 }
 

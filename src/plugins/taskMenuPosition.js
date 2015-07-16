@@ -12,21 +12,22 @@ var taskMenuPosition = {
       ]
     }
   },
-  activate: function(option) { 
-    this.position = option;
-    document.documentElement.classList.add('task-menu-' + this.position);
-    this.style = require('./taskMenuPosition.css');
+  activate: function(position) { 
+    document.documentElement.classList.add('task-menu-' + position);
+    this.style = this.style || require('./taskMenuPosition.css')
+    this.style.use();
+
+    this._lastPosition = position;
   },
   deactivate: function(option) {
-    document.documentElement.classList.remove('task-menu-' + this.position);
-    this.style.unload();
+    this.style.unuse();
   },
-  toggle: function(option) {
-    if (option === 'right') {
-      this._deactivate(option);
+  toggle: function(position) {
+    if (position === 'right') {
+      this._deactivate();
     } else {
-      this._deactivate(option);
-      this._activate(option);
+      document.documentElement.classList.remove('task-menu-' + this._lastPosition);
+      this._activate(position);
     }
   }
 };

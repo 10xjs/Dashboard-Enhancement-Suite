@@ -10,7 +10,8 @@ var disableNotificationConfirmation = {
     this.origlnkDelete_Click = window.lnkDelete_Click;
   },
   activate: function() { 
-    this.style = require('./disableNotificationConfirmation.css');
+    this.style = this.style || require('./disableNotificationConfirmation.css');
+    this.style.use();
 
     // override the function that dislays the confirmation
     window.lnkDelete_Click = function() {
@@ -18,7 +19,7 @@ var disableNotificationConfirmation = {
     };
   },
   deactivate: function() {
-    this.style.unload();
+    this.style.unuse();
     
     window.lnkDelete_Click = this.origlnkDelete_Click;
   }

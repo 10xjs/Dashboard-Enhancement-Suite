@@ -6,7 +6,8 @@ tr[id$="_rowNotes"] {
   display: table-row !important;
 }
 
-.clsGenericIcon.clsToggledNote,
+.clsTaskHistory a.clsToggleNotes,
+.clsTaskHistory a.clsToggledNote,
 #ctl00_plcContentPlaceHolder_lnkTaskHistory {
   display: none !important;
 }
