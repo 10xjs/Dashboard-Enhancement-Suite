@@ -6,10 +6,11 @@ var taskHistory = {
     description: 'Task history and notes are always visible.'
   },
   activate: function() {
-    this.style = require('./taskHistory.css');
+    this.style = this.style || require('./taskHistory.css');
+    this.style.use();
   },
   deactivate: function() {
-    this.style.unload();
+    this.style.unuse();
   },
 }
 

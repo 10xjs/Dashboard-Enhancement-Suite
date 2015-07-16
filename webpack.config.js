@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: {
     inject: './src/inject.js',
@@ -12,10 +14,13 @@ module.exports = {
   resolve: { extensions: ['', '.js', '.jsx'] },
   module: { 
     loaders: [
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.css$/, loader: 'style/useable!css' },
       { test: /\.jsx$/, loader: 'jsx-loader' },
       { test: /\.json$/, loader: 'json-loader'},
       { test: /\.(png|woff|woff2|eot|ttf|svg)(\?.*?)?$/, loader: 'url-loader?limit=100000' }
     ] 
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }

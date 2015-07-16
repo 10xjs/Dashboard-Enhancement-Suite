@@ -7,7 +7,8 @@ var fullscreenDescription = {
   },
 
   activate: function() {
-    this.style = require('./fullscreenDescription.css');
+    this.style = this.style || require('./fullscreenDescription.css');
+    this.style.use();
 
     var lastItem = document.querySelector('.reToolLastItem');
 
@@ -38,7 +39,7 @@ var fullscreenDescription = {
 
   deactivate: function() {
 
-    this.style.unload();
+    this.style.unuse();
 
     if(this.fullscreenButton) {
       this.fullscreenButton.removeEventListener('click', this);

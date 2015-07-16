@@ -7,10 +7,11 @@ var betterNav = {
     default: true
   },
   activate: function() { 
-    this.style = require('./betterNav.css');
+    this.style = this.style || require('./betterNav.css');
+    this.style.use();
   },
   deactivate: function() {
-    this.style.unload();
+    this.style.unuse();
   }
 }
 

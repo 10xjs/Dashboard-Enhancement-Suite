@@ -7,7 +7,7 @@ var taskFiles = {
     description: 'Task files are always visible. Adds the option to view or download task files.'
   },
   activate: function() {
-    this.style = require('./taskFiles.css');
+    this.style = this.style || require('./taskFiles.css').use();
 
     var container = document.querySelector('#ctl00_plcContentPlaceHolder_pnlProperties > p + .clsContainer');
 
@@ -16,7 +16,7 @@ var taskFiles = {
     }
 
     var lightcase = require('lightcase');
-    var lightcaseStyle = require('../../node_modules/lightcase/css/lightcase.css');
+    var lightcaseStyle = require('../../node_modules/lightcase/css/lightcase.css').use();
 
     jQuery('#ctl00_plcContentPlaceHolder_grdTaskFiles a[id$=_lnkView]')
     .attr('target','_blank')
@@ -41,7 +41,7 @@ var taskFiles = {
 
   },
   deactivate: function() {
-    this.style.unload();
+    // this.style.unuse();
   },
   parseFiles: function() {
     var fileRows = document.querySelectorAll('#ctl00_plcContentPlaceHolder_grdTaskFiles tr:nth-child(n+2)');
