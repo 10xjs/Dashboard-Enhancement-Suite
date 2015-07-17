@@ -11,5 +11,6 @@ extension.plug(require('./plugins/resizeDescription/resizeDescription.js'));
 extension.plug(require('./plugins/fullScreenDescription/fullScreenDescription.js'));
 extension.plug(require('./plugins/taskFiles/taskFiles.js'));
 extension.plug(require('./plugins/taskHistory/taskHistory.js'));
+extension.plug(require('./plugins/taskMeta/taskMeta.js'));
 
 module.exports = extension;

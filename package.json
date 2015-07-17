@@ -17,7 +17,8 @@
     "lightcase": "^2.1.0",
     "node-jsx": "^0.13.2",
     "object-assign": "^2.0.0",
-    "react": "^0.13.2"
+    "react": "^0.13.2",
+    "sanitize-html": "^1.7.0"
   },
   "devDependencies": {
     "archiver": "^0.14.3",

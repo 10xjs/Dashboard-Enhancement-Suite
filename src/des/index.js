@@ -62,7 +62,7 @@ des.prototype.handleExtensionID = function(data) {
 
 des.prototype.handleOptions = function(data) {
   this._plugins.forEach(function(plugin){
-    plugin.toggle(data.options[plugin.config.name]);
+    plugin._toggle(data.options[plugin.config.name]);
   });
 };
 
