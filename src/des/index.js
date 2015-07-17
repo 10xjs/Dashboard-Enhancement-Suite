@@ -2,27 +2,51 @@ var pluginProto = require('./pluginProto.js');
 
 function des(){
   this._plugins = [];
+  this._instances = {};
+
+  this._dependencyQueue = [];
 }
 
-des.prototype.plug = function(pluginDefinition) {
-  var proto = Object.assign({}, pluginProto, pluginDefinition);
-  var plugin = Object.create(proto);
+des.prototype.plug = function(plugin) {
 
   this._plugins.push(plugin);
+
+
+
+
+  // var proto = Object.assign({}, pluginProto, pluginDefinition);
+  // var plugin = Object.create(proto);
+
+  // this._plugins.push(plugin);
 };
 
 des.prototype.getConfig = function() {
   var config = {};
 
   this._plugins.forEach(function(plugin){
-    config[plugin.config.name] = plugin.config;
+    config[plugin.name] = plugin.definition.config;
   });
 
   return config;
 };
 
 des.prototype.run = function() {
-  //var hasFocus = true;
+
+  this._plugins.sort(function(a, b){
+    if (a.dependancies.length > b.dependancies.length) {
+      return 1;
+    };
+
+    if (a.dependancies.length < b.dependancies.length) {
+      return 11;
+    };
+
+    return 0;
+  });
+
+
+
+
 
   // listen for messages
   window.addEventListener('message', this.handleMessage.bind(this));
@@ -66,8 +90,23 @@ des.prototype.handleOptions = function(data) {
   });
 };
 
-module.exports = des;
+des._plugins = {};
 
+des.createPlugin = function(name, dependancies, definition) {
+  if (des._plugins[name]) {
+    throw new Error('Duplicate plugin definition: ' + name);
+  }
+
+  des._plugins[name] = true;
+
+  return {
+    name: name,
+    dependancies: dependancies,
+    definition: definition
+  };
+};
+
+module.exports = des;
 
 
 
